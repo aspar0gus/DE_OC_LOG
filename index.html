@@ -6452,7 +6452,6 @@ function initLoveLanguages() {
 
             
 
-            // Set character development
 
             if (character.development) {
 
@@ -6534,11 +6533,11 @@ function initLoveLanguages() {
 
             
 
-            // Set relationships
+          
 
             if (character.relationships) {
 
-                // Clear all selections first
+               
 
                 document.querySelectorAll('.relationship-option').forEach(option => {
 
@@ -6548,7 +6547,7 @@ function initLoveLanguages() {
 
                 
 
-                // Set friends
+                
 
                 character.relationships.friends?.forEach(friend => {
 
@@ -6568,7 +6567,7 @@ function initLoveLanguages() {
 
                 
 
-                // Set enemies
+               
 
                 character.relationships.enemies?.forEach(enemy => {
 
@@ -6588,7 +6587,7 @@ function initLoveLanguages() {
 
                 
 
-                // Set romantic
+              
 
                 character.relationships.romantic?.forEach(romantic => {
 
@@ -6610,7 +6609,7 @@ function initLoveLanguages() {
 
             
 
-            // Set love languages
+            
 
             if (character.loveLanguages) {
 
@@ -6628,7 +6627,7 @@ function initLoveLanguages() {
 
             
 
-            // Set relationship traits
+            
 
             if (character.relationshipTraits) {
 
@@ -6650,7 +6649,7 @@ function initLoveLanguages() {
 
             
 
-            // Set handedness
+            // Set handedness /is that a word....
 
             if (character.handedness) {
 
@@ -6668,7 +6667,7 @@ function initLoveLanguages() {
 
             
 
-            // Set bingo card
+            //Bingo card 5th size update yall
 
             if (character.bingoCard) {
 
@@ -6686,7 +6685,7 @@ function initLoveLanguages() {
 
             
 
-            // Change save button text
+           
 
             saveButton.textContent = 'Update Character';
 
@@ -6694,7 +6693,7 @@ function initLoveLanguages() {
 
 
 
-        // Helper function to set trait value
+       
 
         function setTraitValue(id, value) {
 
@@ -6718,7 +6717,7 @@ function initLoveLanguages() {
 
 
 
-        // Helper thingy
+       
 
         function setPriorityValue(id, value) {
 
@@ -6742,7 +6741,7 @@ function initLoveLanguages() {
 
 
 
-        // Delete chars
+        
 
         function deleteCharacter(index) {
 
@@ -6762,7 +6761,7 @@ function initLoveLanguages() {
 
                 
 
-                // If we're editing this character, clear the form
+                // If we're editing this character, clear da form
 
                 if (currentEditIndex === index) {
 
@@ -6772,7 +6771,7 @@ function initLoveLanguages() {
 
                 } else if (currentEditIndex > index) {
 
-                    // Adjust current edit index if it's after the deleted character
+                  
 
                     currentEditIndex--;
 
@@ -6788,7 +6787,7 @@ function initLoveLanguages() {
 
 
 
-        // Clear form
+        //I SAID CLEAR DA FORM
 
         function clearForm() {
 
@@ -6798,7 +6797,7 @@ function initLoveLanguages() {
 
             
 
-            // Reset all boxes
+           
 
             resetBox(mainImageBox);
 
@@ -6810,7 +6809,7 @@ function initLoveLanguages() {
 
             
 
-            // Reset audio players
+            
 
             themePlayer.audio.src = '';
 
@@ -6878,7 +6877,7 @@ function initLoveLanguages() {
 
             
 
-            // Reset inventory, outfits and collectables
+            //Hey stranger reading this,Im watching funkyfrogbait and my cat is sleeping on mah lap
 
             document.getElementById('inventory-grid').innerHTML = '';
 
@@ -6888,7 +6887,7 @@ function initLoveLanguages() {
 
             
 
-            // Reset all color selections
+           
 
             document.querySelectorAll('.color-swatch').forEach(swatch => {
 
@@ -6906,7 +6905,7 @@ function initLoveLanguages() {
 
             
 
-            // Reset all selector options
+           
 
             document.querySelectorAll('.selector-option').forEach(option => {
 
@@ -6916,7 +6915,7 @@ function initLoveLanguages() {
 
             
 
-            // Reset custom inputs
+           
 
             document.getElementById('custom-pronoun').value = '';
 
@@ -6926,7 +6925,7 @@ function initLoveLanguages() {
 
             
 
-            // Reset all trait scales
+           
 
             document.querySelectorAll('.trait-dot').forEach(dot => {
 
@@ -6936,7 +6935,7 @@ function initLoveLanguages() {
 
             
 
-            // Reset all priority dots
+            
 
             document.querySelectorAll('.priority-dot').forEach(dot => {
 
@@ -6946,7 +6945,7 @@ function initLoveLanguages() {
 
             
 
-            // Reset all relationship selections
+           
 
             document.querySelectorAll('.relationship-option').forEach(option => {
 
@@ -6956,7 +6955,7 @@ function initLoveLanguages() {
 
             
 
-            // Reset development tabs
+            
 
             document.getElementById('love-development-text').value = '';
 
@@ -6966,7 +6965,7 @@ function initLoveLanguages() {
 
             
 
-            // Reset love languages
+            
 
             document.querySelectorAll('.love-language').forEach(language => {
 
@@ -6976,7 +6975,7 @@ function initLoveLanguages() {
 
             
 
-            // Reset relationship traits
+           
 
             document.querySelectorAll('.trait-dots[id$="-scale"]').forEach(scale => {
 
@@ -6990,7 +6989,7 @@ function initLoveLanguages() {
 
             
 
-            // Reset handedness
+          
 
             document.querySelectorAll('.handedness-option').forEach(option => {
 
@@ -7000,7 +6999,7 @@ function initLoveLanguages() {
 
             
 
-            // Reset bingo card
+            
 
             document.querySelectorAll('.bingo-cell').forEach(cell => {
 
@@ -7010,7 +7009,7 @@ function initLoveLanguages() {
 
             
 
-            // Reset save button text
+            
 
             saveButton.textContent = 'Save Character';
 
@@ -7018,7 +7017,7 @@ function initLoveLanguages() {
 
 
 
-        // Update object filter options
+     
 
         function updateObjectFilter() {
 
@@ -7056,7 +7055,7 @@ function initLoveLanguages() {
 
             
 
-            // Restore previous selection if it still exists
+            
 
             if (currentValue && Array.from(objectSet).includes(currentValue)) {
 
@@ -7068,7 +7067,7 @@ function initLoveLanguages() {
 
 
 
-        // Filter them 
+       
 
         function filterCharacters() {
 
@@ -7102,7 +7101,7 @@ function initLoveLanguages() {
 
 
 
-        // Update stats thing
+        // Update stats thingy.please dude.
 
         function updateStatistics() {
 
@@ -7158,7 +7157,7 @@ function initLoveLanguages() {
 
             characters.forEach(character => {
 
-                // Count genders
+                
 
                 if (character.gender) {
 
@@ -7178,7 +7177,7 @@ function initLoveLanguages() {
 
                 
 
-                // Count objects
+               
 
                 if (character.object) {
 
@@ -7224,7 +7223,7 @@ function initLoveLanguages() {
 
             
 
-            // Update gender stats
+            
 
             document.getElementById('male-count').textContent = genderCounts.male;
 
@@ -7234,7 +7233,7 @@ function initLoveLanguages() {
 
             
 
-            // Calculate average age
+            
 
             const averageAge = ageCount > 0 ? Math.round(totalAge / ageCount) : 0;
 
@@ -7242,7 +7241,7 @@ function initLoveLanguages() {
 
             
 
-            // Update charts
+           
 
             updateGenderChart(genderCounts);
 
@@ -7262,7 +7261,7 @@ function initLoveLanguages() {
 
             
 
-            // Destroy previous chart if it exists
+            // IM BEGGING YOU MOMS BF HELPED ME OUT IF IT WONT WORK ITS ON HIM
 
             if (window.genderChart) {
 
@@ -7336,7 +7335,7 @@ function initLoveLanguages() {
 
             
 
-            // Destroy previous chart if it exists
+           
 
             if (window.ageChart) {
 
@@ -7346,7 +7345,7 @@ function initLoveLanguages() {
 
             
 
-            // Filter out empty age groups
+            
 
             const filteredLabels = [];
 
@@ -7442,7 +7441,7 @@ function initLoveLanguages() {
 
             
 
-            // Destroy previous chart if it exists Please work im so tired
+            // Please work im so tired
 
             if (window.objectChart) {
 
@@ -7598,7 +7597,7 @@ function initLoveLanguages() {
 
                     if (Array.isArray(importedData)) {
 
-                        if (confirm(`This will import ${importedData.length} characters. Continue?`)) {
+                        if (confirm(`This will import all ${importedData.length} characters.Sure you want that?`)) {
 
                             characters = importedData;
 
@@ -7610,13 +7609,13 @@ function initLoveLanguages() {
 
                             updateStatistics();
 
-                            alert('Data imported successfully!');
+                            alert('Data imported! Your precious babies are back!');
 
                         }
 
                     } else {
 
-                        alert('Invalid data format. Expected an array of characters.');
+                        alert('Whoopsies,its not the file we need! Try again.Please.');
 
                     }
 
@@ -7644,7 +7643,7 @@ function initLoveLanguages() {
 
         function clearAllData() {
 
-            if (confirm('WARNING: This will permanently delete ALL character data. Are you absolutely sure?')) {
+            if (confirm('WARNING: This will permanently delete ALL character data. Are you absolutely sure you wont miss them?')) {
 
                 characters = [];
 
@@ -7658,7 +7657,7 @@ function initLoveLanguages() {
 
                 clearForm();
 
-                alert('All character data has been cleared.');
+                alert('Character data erased.You monster.Go on,make new ones,who am I to judje you...');
 
             }
 
@@ -7782,4 +7781,4 @@ function initLoveLanguages() {
 
 </html>
 
-why is the page nothing but just text with code,how do i make html work
+Hey,its Aspar! Thanks for using my website! Special thanks for google sites and W3School for help and my discord broskis for inspiration <3

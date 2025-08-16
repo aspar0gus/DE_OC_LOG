@@ -1253,15 +1253,13 @@
 
         
 
-        .priority-dot.active {
-
-            background-color: var(--gold);
-
-        }
-
+        .priority-dots .priority-dot.active {
+            
+    background-color: var(--gold);
+}
         
 
-        /* Pronoun and Sexuality Selectors */
+       
 
         .selector-group {
 
@@ -4730,47 +4728,36 @@
 
 
 
-        // Initialize priority dots
+        
 
         function initPriorityDots() {
-
-            document.querySelectorAll('.priority-dots').forEach(scale => {
-
-                const dots = scale.querySelectorAll('.priority-dot');
-
+    document.querySelectorAll('.priority-dots').forEach(scale => {
+        const dots = scale.querySelectorAll('.priority-dot');
+        
+        dots.forEach(dot => {
+            dot.addEventListener('click', function() {
+                const value = parseInt(this.getAttribute('data-value'));
+                const parent = this.closest('.priority-dots');
                 
-
-                dots.forEach(dot => {
-
-                    dot.addEventListener('click', function() {
-
-                        const value = parseInt(this.getAttribute('data-value'));
-
-                        dots.forEach((d, i) => {
-
-                            if (i < value) {
-
-                                d.classList.add('active');
-
-                            } else {
-
-                                d.classList.remove('active');
-
-                            }
-
-                        });
-
-                    });
-
+                
+                parent.querySelectorAll('.priority-dot').forEach(d => {
+                    d.classList.remove('active');
                 });
-
+                
+                
+                parent.querySelectorAll('.priority-dot').forEach((d, i) => {
+                    if (i < value) {
+                        d.classList.add('active');
+                    }
+                });
             });
+        });
+    });
+}
 
-        }
 
 
-
-        // Initialize height converter
+       
 
         function initHeightConverter() {
 

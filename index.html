@@ -569,17 +569,19 @@
         }
         
        
-        .trait-scale {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin: 10px 0;
-        }
+       .trait-scale span.trait-label:last-child {
+    position: absolute !important;
+    left: 845px !important;
+    width: auto !important;
+    text-align: left !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
 
-        .trait-scale span.trait-label:last-child {
-    width: auto;
-    padding-left: 10px;
-    text-align: left;
+.trait-scale {
+    position: relative !important; 
+    padding-right: 200px !important; 
+}
 }
         
         .trait-label {

@@ -2656,6 +2656,17 @@
             document.getElementById('character-weight').value = character.weight || '';
             document.getElementById('character-body-type').value = character.bodyType || '';
             
+            if (character.development) {
+    document.getElementById('love-development-text').value = character.development.love || '';
+    document.getElementById('hate-development-text').value = character.development.hate || '';
+    document.getElementById('friend-development-text').value = character.development.friend || '';
+} else {
+    document.getElementById('love-development-text').value = '';
+    document.getElementById('hate-development-text').value = '';
+    document.getElementById('friend-development-text').value = '';
+}
+
+            
             // Set pronouns
             if (character.pronouns) {
                 let pronounSet = false;

@@ -2583,7 +2583,7 @@
             const charactersToDisplay = filteredCharacters || characters;
             
             if (charactersToDisplay.length === 0) {
-                gallery.innerHTML = '<p>No characters found. Create your first character!</p>';
+                gallery.innerHTML = '<p>Whoopsies...No characters found.</p>';
                 return;
             }
             
@@ -2591,7 +2591,7 @@
                 const card = document.createElement('div');
                 card.className = 'character-card';
                 
-                // Format relationships for display
+               
                 const formatRelationships = (type) => {
                     return character.relationships && character.relationships[type] && character.relationships[type].length > 0 
                         ? character.relationships[type].join(', ') 
@@ -3022,7 +3022,7 @@
 
         // Delete character
         function deleteCharacter(index) {
-            if (confirm(`Are you sure you want to delete "${characters[index].name}"? This cannot be undone.`)) {
+            if (confirm(`You have "${characters[index].name} characters...You sure you want to get rid of them all? You cant revive them after!!!`)) {
                 const deletedName = characters[index].name;
                 characters.splice(index, 1);
                 localStorage.setItem('oc-characters', JSON.stringify(characters));
@@ -3030,31 +3030,31 @@
                 updateObjectFilter();
                 updateStatistics();
                 
-                // If we're editing this character, clear the form
+               
                 if (currentEditIndex === index) {
                     clearForm();
                     currentEditIndex = -1;
                 } else if (currentEditIndex > index) {
-                    // Adjust current edit index if it's after the deleted character
+                    
                     currentEditIndex--;
                 }
                 
-                alert(`Character "${deletedName}" has been deleted.`);
+                alert(`Character "${deletedName}" Is gone.Forever.Okay,maybe you have the backup file but Im still upset`);
             }
         }
 
-        // Clear form
+       
         function clearForm() {
             characterForm.reset();
             currentEditIndex = -1;
             
-            // Reset all boxes
+            
             resetBox(mainImageBox);
             resetBox(hairstyleBox);
             resetBox(featuresBox);
             resetBox(inanimalImageBox);
             
-            // Reset audio players
+            
             themePlayer.audio.src = '';
             themePlayer.songName.textContent = 'No song selected';
             themePlayer.playBtn.disabled = true;
@@ -3132,11 +3132,11 @@
             document.getElementById('hate-development-text').value = '';
             document.getElementById('friend-development-text').value = '';
             
-            // Reset save button text
+            
             saveButton.textContent = 'Save Character';
         }
 
-        // Update object filter options
+        
         function updateObjectFilter() {
             const objectSet = new Set();
             characters.forEach(character => {
@@ -3153,15 +3153,15 @@
                 option.value = object;
                 option.textContent = object;
                 filterObjectSelect.appendChild(option);
-            });
             
-            // Restore previous selection if it still exists
+            
+            
             if (currentValue && Array.from(objectSet).includes(currentValue)) {
                 filterObjectSelect.value = currentValue;
             }
         }
 
-        // Filter characters based on search and filters
+        
         function filterCharacters() {
             const nameSearch = searchNameInput.value.toLowerCase();
             const genderFilter = filterGenderSelect.value;
@@ -3178,7 +3178,7 @@
             renderGallery(filtered);
         }
 
-        // Update statistics
+        
         function updateStatistics() {
             document.getElementById('total-characters').textContent = characters.length;
             
@@ -3216,12 +3216,12 @@
                     }
                 }
                 
-                // Count objects
+                
                 if (character.object) {
                     objectCounts[character.object] = (objectCounts[character.object] || 0) + 1;
                 }
                 
-                // Calculate average age and age groups
+                
                 if (character.age && !isNaN(character.age)) {
                     const age = parseInt(character.age);
                     totalAge += age;
@@ -3239,26 +3239,26 @@
                 }
             });
             
-            // Update gender stats
+           
             document.getElementById('male-count').textContent = genderCounts.male;
             document.getElementById('female-count').textContent = genderCounts.female;
             document.getElementById('nb-count').textContent = genderCounts['non-binary'];
             
-            // Calculate average age
+           
             const averageAge = ageCount > 0 ? Math.round(totalAge / ageCount) : 0;
             document.getElementById('avg-age').textContent = averageAge;
             
-            // Update charts
+            
             updateGenderChart(genderCounts);
             updateAgeChart(ageGroups);
             updateObjectChart(objectCounts);
         }
         
-        // Update gender chart
+        
         function updateGenderChart(genderCounts) {
             const ctx = document.getElementById('gender-chart').getContext('2d');
             
-            // Destroy previous chart if it exists
+           
             if (window.genderChart) {
                 window.genderChart.destroy();
             }

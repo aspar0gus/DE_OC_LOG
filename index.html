@@ -5075,40 +5075,41 @@
 
         }
 
-        // Initialize love languages
+        
 function initLoveLanguages() {
+    
     document.querySelectorAll('.love-language').forEach(language => {
+        
         language.addEventListener('click', function() {
+            
             this.classList.toggle('active');
+            
         });
     });
 }
 
 
 
-        // Initialize bingo card
+        
 
-        function initBingoCard() {
-
-            document.querySelectorAll('.bingo-cell').forEach(cell => {
-
-                cell.addEventListener('click', function() {
-
-                    this.classList.toggle('active');
-
-                });
-
-            });
-
-        }
+       function initBingoCard() {
+           
+    document.querySelectorAll('.bingo-cell').forEach(cell => {
+        
+        cell.addEventListener('click', function() {
+            
+            this.classList.toggle('active');
+            
+        });
+    });
+}
 
 
-
-        // Save character function
+       
 
         function saveCharacter() {
 
-            // Get form values
+           
 
             const name = document.getElementById('character-name').value;
 
@@ -5128,7 +5129,7 @@ function initLoveLanguages() {
 
             
 
-            // Get pronouns
+            
 
             let pronouns = '';
 
@@ -5148,7 +5149,7 @@ function initLoveLanguages() {
 
             
 
-            // Get sexuality
+            
 
             let sexuality = '';
 

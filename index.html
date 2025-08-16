@@ -582,11 +582,7 @@
     text-align: left;
 }
         
-        .trait-label {
-            width: 80px;
-            text-align: center;
-            font-size: 0.9rem;
-        }
+        
         
         .trait-dots {
             display: flex;
@@ -796,6 +792,14 @@
                 grid-template-columns: 1fr;
             }
         }
+        
+        .trait-scale span.trait-label:last-child {
+    width: auto !important;
+    min-width: 50px;
+    padding-left: 5px !important;
+    margin-left: -10px !important;
+    text-align: left !important;
+}
     </style>
 </head>
 <body>

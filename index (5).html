@@ -1,0 +1,3505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DE OCs Archive</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --dark-blue: #030063;
+            --white: #FFFFFF;
+            --blue: #3E84ED;
+            --gold: #EBAC00;
+            --red: #FF4444;
+            --green: #00FF00;
+            --yellow: #FFFF00;
+            --dark-bg: #1a1a2e;
+            --light-bg: #16213e;
+            --text: #e6e6e6;
+            --purple: #9c27b0;
+            --pink: #e91e63;
+            --orange: #ff9800;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 3px solid var(--gold);
+            margin-bottom: 30px;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            margin: 20px 0;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        /* Tabs */
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--blue);
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: transparent;
+            border: none;
+            color: var(--white);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: bold;
+            position: relative;
+            transition: all 0.2s;
+        }
+        
+        .tab:hover {
+            color: var(--gold);
+        }
+        
+        .tab.active {
+            color: var(--gold);
+        }
+        
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--gold);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* Character Form Styles */
+        .character-form {
+            background-color: var(--light-bg);
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--gold);
+        }
+        
+        input[type="text"],
+        input[type="number"],
+        input[type="url"],
+        input[type="date"],
+        input[type="color"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--blue);
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text);
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        button {
+            background-color: var(--gold);
+            color: var(--dark-blue);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            background-color: var(--blue);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+        
+        /* Drag and drop styles */
+        .drag-drop-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+        
+        .drag-drop-box {
+            width: 100%;
+            aspect-ratio: 1/1;
+            border: 2px dashed var(--gold);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            background-color: rgba(62, 132, 237, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .drag-drop-box:hover {
+            background-color: rgba(62, 132, 237, 0.3);
+        }
+        
+        .drag-drop-box img, .drag-drop-box audio, .drag-drop-box video {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+        
+        .drag-drop-box input {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .drag-drop-box .instructions {
+            text-align: center;
+            padding: 10px;
+            color: var(--gold);
+            font-size: 0.9rem;
+        }
+        
+        .delete-media-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: var(--red);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .drag-drop-box:hover .delete-media-btn {
+            opacity: 1;
+        }
+        
+        /* Relationships Section Styles */
+        .relationships-graph {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .relationship-category {
+            background-color: rgba(62, 132, 237, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            min-height: 300px;
+        }
+        
+        .relationship-category h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            margin-top: 0;
+            text-align: center;
+        }
+        
+        .relationship-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+            max-height: 250px;
+            overflow-y: auto;
+            padding: 5px;
+        }
+        
+        .relationship-option {
+            padding: 8px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--blue);
+        }
+        
+        .relationship-option:hover {
+            transform: scale(1.05);
+        }
+        
+        .relationship-option.friends {
+            background-color: rgba(255, 255, 0, 0.3);
+            border-color: var(--yellow);
+            color: var(--yellow);
+        }
+        
+        .relationship-option.enemies {
+            background-color: rgba(255, 0, 0, 0.3);
+            border-color: var(--red);
+            color: var(--red);
+        }
+        
+        .relationship-option.romantic {
+            background-color: rgba(0, 255, 0, 0.3);
+            border-color: var(--green);
+            color: var(--green);
+        }
+        
+        /* Gallery Styles */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .character-card {
+            background-color: var(--light-bg);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+            position: relative;
+        }
+        
+        .character-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .character-card h3 {
+            color: var(--gold);
+            margin-bottom: 10px;
+            border-bottom: 1px solid var(--blue);
+            padding-bottom: 5px;
+        }
+        
+        .character-card p {
+            margin-bottom: 8px;
+        }
+        
+        .character-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+        
+        .character-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        
+        /* Search and Filter */
+        .search-filter {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .search-filter input,
+        .search-filter select {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid var(--blue);
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text);
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        /* Stats Section */
+        .stats-section {
+            background-color: var(--light-bg);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .stat-card {
+            background-color: rgba(62, 132, 237, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .stat-card h4 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 5px;
+            color: var(--gold);
+        }
+        
+        .stat-card p {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        /* Custom Audio Player */
+        .audio-player {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .audio-player-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .audio-player-btn {
+            background: none;
+            border: none;
+            color: var(--gold);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .audio-player-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .audio-player-progress {
+            flex: 1;
+            height: 5px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .audio-player-progress-filled {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background-color: var(--gold);
+            border-radius: 5px;
+            width: 0%;
+        }
+        
+        .audio-player-time {
+            font-size: 0.8rem;
+            color: var(--text);
+            min-width: 80px;
+            text-align: center;
+        }
+        
+        .audio-player-volume {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .audio-player-volume input {
+            width: 80px;
+            cursor: pointer;
+        }
+        
+        .audio-player-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+        
+        /* Voice Claim Section */
+        .voice-claim-card {
+            background-color: rgba(62, 132, 237, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .voice-claim-card h3 {
+            margin-bottom: 10px;
+        }
+        
+        /* Color Palette Section */
+        .color-palette {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .color-swatch {
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+            position: relative;
+        }
+        
+        .color-swatch:hover {
+            transform: scale(1.1);
+        }
+        
+        .color-swatch.active {
+            border-color: var(--gold);
+            transform: scale(1.1);
+        }
+        
+        .color-swatch .delete-color {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--red);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 15px;
+            height: 15px;
+            font-size: 10px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .color-swatch:hover .delete-color {
+            display: flex;
+        }
+        
+        .add-color {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+       
+        .trait-scale {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+
+        .trait-scale span.trait-label:last-child {
+    width: auto;
+    padding-left: 10px;
+    text-align: left;
+}
+        
+        .trait-label {
+            width: 80px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .trait-dots {
+            display: flex;
+            gap: 5px;
+            flex: 1;
+        }
+        
+        .trait-dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .trait-dot.active {
+            background-color: var(--gold);
+        }
+        
+        /* Priorities */
+        .priorities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .priority-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .priority-dots {
+            display: flex;
+            gap: 5px;
+            margin-top: 5px;
+        }
+        
+        .priority-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .priority-dot.active {
+            background-color: var(--gold);
+        }
+        
+        /* Pronoun and Sexuality Selectors */
+        .selector-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        
+        .selector-option {
+            padding: 8px 15px;
+            border-radius: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--blue);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .selector-option:hover {
+            background-color: rgba(62, 132, 237, 0.3);
+        }
+        
+        .selector-option.active {
+            background-color: var(--gold);
+            color: var(--dark-blue);
+            border-color: var(--gold);
+        }
+        
+        /* Inventory and Outfits */
+        .inventory-grid, .outfits-grid, .collectables-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .inventory-item, .outfit-item, .collectable-item {
+            background-color: rgba(62, 132, 237, 0.1);
+            border-radius: 5px;
+            padding: 10px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .inventory-item img, .outfit-item img, .collectable-item img {
+            max-width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+        
+        /* Inanimal Section */
+        .inanimal-section {
+            background-color: rgba(62, 132, 237, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .inanimal-media {
+            width: 100%;
+            height: 300px;
+            border-radius: 10px;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+        
+        /* Chart Containers */
+        .chart-container {
+            background-color: var(--light-bg);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .chart-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        /* Make charts smaller */
+        .chart-container canvas {
+            max-height: 200px !important;
+            width: auto !important;
+            margin: 0 auto;
+        }
+        
+        /* Character Development */
+        .development-section {
+            background-color: rgba(62, 132, 237, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .development-tabs {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        
+        .development-tab {
+            padding: 8px 15px;
+            cursor: pointer;
+            background-color: transparent;
+            border: none;
+            color: var(--white);
+            font-family: 'Montserrat', sans-serif;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        
+        .development-tab.active {
+            color: var(--gold);
+            border-bottom-color: var(--gold);
+        }
+        
+        .development-content {
+            display: none;
+        }
+        
+        .development-content.active {
+            display: block;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .relationships-graph {
+                grid-template-columns: 1fr;
+            }
+            
+            .drag-drop-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .search-filter {
+                flex-direction: column;
+            }
+            
+            .audio-player-controls {
+                flex-wrap: wrap;
+            }
+            
+            .audio-player-progress {
+                width: 100%;
+            }
+            
+            .chart-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>DE OCs Archive</h1>
+            <p>Make your own Date Everything character!</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab active" data-tab="creator">Character Creator</button>
+            <button class="tab" data-tab="gallery">Character Gallery</button>
+            <button class="tab" data-tab="stats">Statistics</button>
+        </div>
+        
+        <div id="creator" class="tab-content active">
+            <form id="character-form">
+                <div class="character-form">
+                    <h2>Basic Information</h2>
+                    <div class="form-group">
+                        <label for="character-image">Character Image</label>
+                        <div class="drag-drop-container">
+                            <div class="drag-drop-box" id="main-image-box">
+                                <div class="instructions">Drag & drop image here or click to upload</div>
+                                <input type="file" id="character-image" accept="image/*" class="image-upload">
+                                <button class="delete-media-btn">×</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="character-name">Full Name*</label>
+                            <input type="text" id="character-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="character-nickname">Nickname</label>
+                            <input type="text" id="character-nickname">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="character-dob">Date of Birth</label>
+                            <input type="date" id="character-dob">
+                        </div>
+                        <div class="form-group">
+                            <label>Pronouns</label>
+                            <div class="selector-group" id="pronoun-selector">
+                                <div class="selector-option" data-value="she/her">She/Her</div>
+                                <div class="selector-option" data-value="he/him">He/Him</div>
+                                <div class="selector-option" data-value="they/them">They/Them</div>
+                                <div class="selector-option" data-value="custom">
+                                    <input type="text" id="custom-pronoun" placeholder="Custom" style="width: 80px; background: transparent; border: none; color: white;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Sexuality</label>
+                            <div class="selector-group" id="sexuality-selector">
+                                <div class="selector-option" data-value="heterosexual">Heterosexual</div>
+                                <div class="selector-option" data-value="homosexual">Homosexual</div>
+                                <div class="selector-option" data-value="bisexual">Bisexual</div>
+                                <div class="selector-option" data-value="pansexual">Pansexual</div>
+                                <div class="selector-option" data-value="asexual">Asexual</div>
+                                <div class="selector-option" data-value="other">
+                                    <input type="text" id="custom-sexuality" placeholder="Other" style="width: 80px; background: transparent; border: none; color: white;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="character-age">Age</label>
+                            <input type="number" id="character-age" min="0">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <div class="selector-group" id="gender-selector">
+                                <div class="selector-option" data-value="male">Male</div>
+                                <div class="selector-option" data-value="female">Female</div>
+                                <div class="selector-option" data-value="non-binary">Non-binary</div>
+                                <div class="selector-option" data-value="other">
+                                    <input type="text" id="custom-gender" placeholder="Other" style="width: 80px; background: transparent; border: none; color: white;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="character-object">Object</label>
+                            <input type="text" id="character-object">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="character-location">Location in House</label>
+                        <input type="text" id="character-location">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Eye Color</label>
+                        <div class="color-palette" id="eye-color-palette">
+                            <!-- Colors will be added dynamically -->
+                        </div>
+                        <div class="add-color">
+                            <input type="color" id="custom-eye-color" value="#ffffff" style="display: none;">
+                            <button type="button" id="eye-color-picker" style="padding: 8px 15px;">Click to Customize</button>
+                            <button type="button" id="add-eye-color">Add Color</button>
+                        </div>
+                        <input type="hidden" id="selected-eye-color" value="">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Hair Color</label>
+                        <div class="color-palette" id="hair-color-palette">
+                            <!-- Colors will be added dynamically -->
+                        </div>
+                        <div class="add-color">
+                            <input type="color" id="custom-hair-color" value="#ffffff" style="display: none;">
+                            <button type="button" id="hair-color-picker" style="padding: 8px 15px;">Click to Customize</button>
+                            <button type="button" id="add-hair-color">Add Color</button>
+                        </div>
+                        <input type="hidden" id="selected-hair-color" value="">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Skin Color</label>
+                        <div class="color-palette" id="skin-color-palette">
+                            <!-- Colors will be added dynamically -->
+                        </div>
+                        <div class="add-color">
+                            <input type="color" id="custom-skin-color" value="#ffffff" style="display: none;">
+                            <button type="button" id="skin-color-picker" style="padding: 8px 15px;">Click to Customize</button>
+                            <button type="button" id="add-skin-color">Add Color</button>
+                        </div>
+                        <input type="hidden" id="selected-skin-color" value="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="character-hairstyle">Hairstyle Reference</label>
+                        <div class="drag-drop-container">
+                            <div class="drag-drop-box" id="hairstyle-box">
+                                <div class="instructions">Drag & drop hairstyle image here or click to upload</div>
+                                <input type="file" id="character-hairstyle" accept="image/*" class="image-upload">
+                                <button class="delete-media-btn">×</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="character-features">Defining Features</label>
+                        <textarea id="character-features"></textarea>
+                        <div class="drag-drop-container" style="margin-top: 10px;">
+                            <div class="drag-drop-box" id="features-box">
+                                <div class="instructions">Drag & drop feature images here or click to upload</div>
+                                <input type="file" id="character-features-images" accept="image/*" multiple class="image-upload">
+                                <button class="delete-media-btn">×</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="character-job">Job/Occupation</label>
+                            <input type="text" id="character-job">
+                        </div>
+                        <div class="form-group">
+                            <label for="character-height">Height (cm)</label>
+                            <input type="number" id="character-height" min="0">
+                            <div id="height-conversion" style="font-size: 0.8rem; margin-top: 5px;"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="character-weight">Weight (kg)</label>
+                            <input type="number" id="character-weight" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="character-body-type">Body Type</label>
+                            <input type="text" id="character-body-type">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="character-personality">Personality</label>
+                        <textarea id="character-personality"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <h3>Personality Traits</h3>
+                        <div class="trait-scale">
+                            <span class="trait-label">Nice</span>
+                            <div class="trait-dots" id="nice-mean">
+                                <div class="trait-dot" data-value="1"></div>
+                                <div class="trait-dot" data-value="2"></div>
+                                <div class="trait-dot" data-value="3"></div>
+                                <div class="trait-dot" data-value="4"></div>
+                                <div class="trait-dot" data-value="5"></div>
+                                <div class="trait-dot" data-value="6"></div>
+                                <div class="trait-dot" data-value="7"></div>
+                                <div class="trait-dot" data-value="8"></div>
+                                <div class="trait-dot" data-value="9"></div>
+                                <div class="trait-dot" data-value="10"></div>
+                            </div>
+                            <span class="trait-label right-label">Mean</span>
+                        </div>
+
+                        <div class="trait-scale">
+                            <span class="trait-label">Brave</span>
+                            <div class="trait-dots" id="brave-coward">
+                                <div class="trait-dot" data-value="1"></div>
+                                <div class="trait-dot" data-value="2"></div>
+                                <div class="trait-dot" data-value="3"></div>
+                                <div class="trait-dot" data-value="4"></div>
+                                <div class="trait-dot" data-value="5"></div>
+                                <div class="trait-dot" data-value="6"></div>
+                                <div class="trait-dot" data-value="7"></div>
+                                <div class="trait-dot" data-value="8"></div>
+                                <div class="trait-dot" data-value="9"></div>
+                                <div class="trait-dot" data-value="10"></div>
+                            </div>
+                            <span class="trait-label right-label">Coward</span>
+                        </div>
+
+                        <div class="trait-scale">
+                            <span class="trait-label">Pacifist</span>
+                            <div class="trait-dots" id="pacifist-violent">
+                                <div class="trait-dot" data-value="1"></div>
+                                <div class="trait-dot" data-value="2"></div>
+                                <div class="trait-dot" data-value="3"></div>
+                                <div class="trait-dot" data-value="4"></div>
+                                <div class="trait-dot" data-value="5"></div>
+                                <div class="trait-dot" data-value="6"></div>
+                                <div class="trait-dot" data-value="7"></div>
+                                <div class="trait-dot" data-value="8"></div>
+                                <div class="trait-dot" data-value="9"></div>
+                                <div class="trait-dot" data-value="10"></div>
+                            </div>
+                            <span class="trait-label right-label">Violent</span>
+                        </div>
+
+                        <div class="trait-scale">
+                            <span class="trait-label">Extrovert</span>
+                            <div class="trait-dots" id="extrovert-introvert">
+                                <div class="trait-dot" data-value="1"></div>
+                                <div class="trait-dot" data-value="2"></div>
+                                <div class="trait-dot" data-value="3"></div>
+                                <div class="trait-dot" data-value="4"></div>
+                                <div class="trait-dot" data-value="5"></div>
+                                <div class="trait-dot" data-value="6"></div>
+                                <div class="trait-dot" data-value="7"></div>
+                                <div class="trait-dot" data-value="8"></div>
+                                <div class="trait-dot" data-value="9"></div>
+                                <div class="trait-dot" data-value="10"></div>
+                            </div>
+                            <span class="trait-label right-label">Introvert</span>
+                        </div>
+
+                        <div class="trait-scale">
+                            <span class="trait-label">Idealistic</span>
+                            <div class="trait-dots" id="idealistic-pragmatic">
+                                <div class="trait-dot" data-value="1"></div>
+                                <div class="trait-dot" data-value="2"></div>
+                                <div class="trait-dot" data-value="3"></div>
+                                <div class="trait-dot" data-value="4"></div>
+                                <div class="trait-dot" data-value="5"></div>
+                                <div class="trait-dot" data-value="6"></div>
+                                <div class="trait-dot" data-value="7"></div>
+                                <div class="trait-dot" data-value="8"></div>
+                                <div class="trait-dot" data-value="9"></div>
+                                <div class="trait-dot" data-value="10"></div>
+                            </div>
+                           <span class="trait-label right-label">Pragmatic</span>
+                        </div>
+
+                        <div class="trait-scale">
+                            <span class="trait-label">Wise</span>
+                            <div class="trait-dots" id="wise-dull">
+                                <div class="trait-dot" data-value="1"></div>
+                                <div class="trait-dot" data-value="2"></div>
+                                <div class="trait-dot" data-value="3"></div>
+                                <div class="trait-dot" data-value="4"></div>
+                                <div class="trait-dot" data-value="5"></div>
+                                <div class="trait-dot" data-value="6"></div>
+                                <div class="trait-dot" data-value="7"></div>
+                                <div class="trait-dot" data-value="8"></div>
+                                <div class="trait-dot" data-value="9"></div>
+                                <div class="trait-dot" data-value="10"></div>
+                            </div>
+                            <span class="trait-label right-label">Dull</span>
+                        </div>
+
+                        <div class="trait-scale">
+                            <span class="trait-label">Selfless</span>
+                            <div class="trait-dots" id="selfless-selfish">
+                                <div class="trait-dot" data-value="1"></div>
+                                <div class="trait-dot" data-value="2"></div>
+                                <div class="trait-dot" data-value="3"></div>
+                                <div class="trait-dot" data-value="4"></div>
+                                <div class="trait-dot" data-value="5"></div>
+                                <div class="trait-dot" data-value="6"></div>
+                                <div class="trait-dot" data-value="7"></div>
+                                <div class="trait-dot" data-value="8"></div>
+                                <div class="trait-dot" data-value="9"></div>
+                                <div class="trait-dot" data-value="10"></div>
+                            </div>
+                            <span class="trait-label right-label">Selfish</span>
+                        </div>
+
+                        <div class="trait-scale">
+                            <span class="trait-label">Leader</span>
+                            <div class="trait-dots" id="leader-follower">
+                                <div class="trait-dot" data-value="1"></div>
+                                <div class="trait-dot" data-value="2"></div>
+                                <div class="trait-dot" data-value="3"></div>
+                                <div class="trait-dot" data-value="4"></div>
+                                <div class="trait-dot" data-value="5"></div>
+                                <div class="trait-dot" data-value="6"></div>
+                                <div class="trait-dot" data-value="7"></div>
+                                <div class="trait-dot" data-value="8"></div>
+                                <div class="trait-dot" data-value="9"></div>
+                                <div class="trait-dot" data-value="10"></div>
+                            </div>
+                            <span class="trait-label right-label">Follower</span>
+                        </div>
+
+                        <div class="trait-scale">
+                            <span class="trait-label">Forgiving</span>
+                            <div class="trait-dots" id="forgiving-unforgiving">
+                                <div class="trait-dot" data-value="1"></div>
+                                <div class="trait-dot" data-value="2"></div>
+                                <div class="trait-dot" data-value="3"></div>
+                                <div class="trait-dot" data-value="4"></div>
+                                <div class="trait-dot" data-value="5"></div>
+                                <div class="trait-dot" data-value="6"></div>
+                                <div class="trait-dot" data-value="7"></div>
+                                <div class="trait-dot" data-value="8"></div>
+                                <div class="trait-dot" data-value="9"></div>
+                                <div class="trait-dot" data-value="10"></div>
+                            </div>
+                            <span class="trait-label right-label">Unforgiving</span>
+                        </div>
+
+                        <div class="trait-scale">
+                            <span class="trait-label">Honest</span>
+                            <div class="trait-dots" id="honest-deceptive">
+                                <div class="trait-dot" data-value="1"></div>
+                                <div class="trait-dot" data-value="2"></div>
+                                <div class="trait-dot" data-value="3"></div>
+                                <div class="trait-dot" data-value="4"></div>
+                                <div class="trait-dot" data-value="5"></div>
+                                <div class="trait-dot" data-value="6"></div>
+                                <div class="trait-dot" data-value="7"></div>
+                                <div class="trait-dot" data-value="8"></div>
+                                <div class="trait-dot" data-value="9"></div>
+                                <div class="trait-dot" data-value="10"></div>
+                            </div>
+                            <span class="trait-label right-label">Deceptive</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h3>Priorities</h3>
+                        <div class="priorities-grid">
+                            <div class="priority-item">
+                                <span>Work</span>
+                                <div class="priority-dots" id="priority-work">
+                                    <div class="priority-dot" data-value="1"></div>
+                                    <div class="priority-dot" data-value="2"></div>
+                                    <div class="priority-dot" data-value="3"></div>
+                                    <div class="priority-dot" data-value="4"></div>
+                                    <div class="priority-dot" data-value="5"></div>
+                                </div>
+                            </div>
+                            <div class="priority-item">
+                                <span>Love</span>
+                                <div class="priority-dots" id="priority-love">
+                                    <div class="priority-dot" data-value="1"></div>
+                                    <div class="priority-dot" data-value="2"></div>
+                                    <div class="priority-dot" data-value="3"></div>
+                                    <div class="priority-dot" data-value="4"></div>
+                                    <div class="priority-dot" data-value="5"></div>
+                                </div>
+                            </div>
+                            <div class="priority-item">
+                                <span>Family</span>
+                                <div class="priority-dots" id="priority-family">
+                                    <div class="priority-dot" data-value="1"></div>
+                                    <div class="priority-dot" data-value="2"></div>
+                                    <div class="priority-dot" data-value="3"></div>
+                                    <div class="priority-dot" data-value="4"></div>
+                                    <div class="priority-dot" data-value="5"></div>
+                                </div>
+                            </div>
+                            <div class="priority-item">
+                                <span>Friends</span>
+                                <div class="priority-dots" id="priority-friends">
+                                    <div class="priority-dot" data-value="1"></div>
+                                    <div class="priority-dot" data-value="2"></div>
+                                    <div class="priority-dot" data-value="3"></div>
+                                    <div class="priority-dot" data-value="4"></div>
+                                    <div class="priority-dot" data-value="5"></div>
+                                </div>
+                            </div>
+                            <div class="priority-item">
+                                <span>Wealth</span>
+                                <div class="priority-dots" id="priority-wealth">
+                                    <div class="priority-dot" data-value="1"></div>
+                                    <div class="priority-dot" data-value="2"></div>
+                                    <div class="priority-dot" data-value="3"></div>
+                                    <div class="priority-dot" data-value="4"></div>
+                                    <div class="priority-dot" data-value="5"></div>
+                                </div>
+                            </div>
+                            <div class="priority-item">
+                                <span>Praise</span>
+                                <div class="priority-dots" id="priority-praise">
+                                    <div class="priority-dot" data-value="1"></div>
+                                    <div class="priority-dot" data-value="2"></div>
+                                    <div class="priority-dot" data-value="3"></div>
+                                    <div class="priority-dot" data-value="4"></div>
+                                    <div class="priority-dot" data-value="5"></div>
+                                </div>
+                            </div>
+                            <div class="priority-item">
+                                <span>Home</span>
+                                <div class="priority-dots" id="priority-home">
+                                    <div class="priority-dot" data-value="1"></div>
+                                    <div class="priority-dot" data-value="2"></div>
+                                    <div class="priority-dot" data-value="3"></div>
+                                    <div class="priority-dot" data-value="4"></div>
+                                    <div class="priority-dot" data-value="5"></div>
+                                </div>
+                            </div>
+                            <div class="priority-item">
+                                <span>Health</span>
+                                <div class="priority-dots" id="priority-health">
+                                    <div class="priority-dot" data-value="1"></div>
+                                    <div class="priority-dot" data-value="2"></div>
+                                    <div class="priority-dot" data-value="3"></div>
+                                    <div class="priority-dot" data-value="4"></div>
+                                    <div class="priority-dot" data-value="5"></div>
+                                </div>
+                            </div>
+                            <div class="priority-item">
+                                <span>Truth</span>
+                                <div class="priority-dots" id="priority-truth">
+                                    <div class="priority-dot" data-value="1"></div>
+                                    <div class="priority-dot" data-value="2"></div>
+                                    <div class="priority-dot" data-value="3"></div>
+                                    <div class="priority-dot" data-value="4"></div>
+                                    <div class="priority-dot" data-value="5"></div>
+                                </div>
+                            </div>
+                            <div class="priority-item">
+                                <span>Justice</span>
+                                <div class="priority-dots" id="priority-justice">
+                                    <div class="priority-dot" data-value="1"></div>
+                                    <div class="priority-dot" data-value="2"></div>
+                                    <div class="priority-dot" data-value="3"></div>
+                                    <div class="priority-dot" data-value="4"></div>
+                                    <div class="priority-dot" data-value="5"></div>
+                                </div>
+                            </div>
+                            <div class="priority-item">
+                                <span>Fame</span>
+                                <div class="priority-dots" id="priority-fame">
+                                    <div class="priority-dot" data-value="1"></div>
+                                    <div class="priority-dot" data-value="2"></div>
+                                    <div class="priority-dot" data-value="3"></div>
+                                    <div class="priority-dot" data-value="4"></div>
+                                    <div class="priority-dot" data-value="5"></div>
+                                </div>
+                            </div>
+                            <div class="priority-item">
+                                <span>Power</span>
+                                <div class="priority-dots" id="priority-power">
+                                    <div class="priority-dot" data-value="1"></div>
+                                    <div class="priority-dot" data-value="2"></div>
+                                    <div class="priority-dot" data-value="3"></div>
+                                    <div class="priority-dot" data-value="4"></div>
+                                    <div class="priority-dot" data-value="5"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="character-backstory">Backstory</label>
+                        <textarea id="character-backstory"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="character-abilities">Abilities/Skills</label>
+                        <textarea id="character-abilities"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <h3>Associated Songs</h3>
+                        <div class="audio-player" id="theme-song-player">
+                            <div class="audio-player-controls">
+                                <button class="audio-player-btn" id="theme-play-btn"><i class="fas fa-play"></i></button>
+                                <button class="audio-player-btn" id="theme-pause-btn" style="display: none;"><i class="fas fa-pause"></i></button>
+                                <div class="audio-player-progress" id="theme-progress">
+                                    <div class="audio-player-progress-filled" id="theme-progress-filled"></div>
+                                </div>
+                                <div class="audio-player-time" id="theme-time">0:00 / 0:00</div>
+                                <div class="audio-player-volume">
+                                    <button class="audio-player-btn" id="theme-mute-btn"><i class="fas fa-volume-up"></i></button>
+                                    <input type="range" id="theme-volume" min="0" max="1" step="0.1" value="0.7">
+                                </div>
+                            </div>
+                            <div class="audio-player-info">
+                                <span id="theme-song-name">No song selected</span>
+                                <button class="audio-player-btn" id="theme-upload-btn"><i class="fas fa-upload"></i> Upload</button>
+                                <input type="file" id="theme-song-upload" accept="audio/*" style="display: none;">
+                            </div>
+                        </div>
+                        
+                        <div class="audio-player" id="song2-player" style="margin-top: 15px;">
+                            <div class="audio-player-controls">
+                                <button class="audio-player-btn" id="song2-play-btn"><i class="fas fa-play"></i></button>
+                                <button class="audio-player-btn" id="song2-pause-btn" style="display: none;"><i class="fas fa-pause"></i></button>
+                                <div class="audio-player-progress" id="song2-progress">
+                                    <div class="audio-player-progress-filled" id="song2-progress-filled"></div>
+                                </div>
+                                <div class="audio-player-time" id="song2-time">0:00 / 0:00</div>
+                                <div class="audio-player-volume">
+                                    <button class="audio-player-btn" id="song2-mute-btn"><i class="fas fa-volume-up"></i></button>
+                                    <input type="range" id="song2-volume" min="0" max="1" step="0.1" value="0.7">
+                                </div>
+                            </div>
+                            <div class="audio-player-info">
+                                <span id="song2-name">No song selected</span>
+                                <button class="audio-player-btn" id="song2-upload-btn"><i class="fas fa-upload"></i> Upload</button>
+                                <input type="file" id="song2-upload" accept="audio/*" style="display: none;">
+                            </div>
+                        </div>
+                        
+                        <div class="audio-player" id="song3-player" style="margin-top: 15px;">
+                            <div class="audio-player-controls">
+                                <button class="audio-player-btn" id="song3-play-btn"><i class="fas fa-play"></i></button>
+                                <button class="audio-player-btn" id="song3-pause-btn" style="display: none;"><i class="fas fa-pause"></i></button>
+                                <div class="audio-player-progress" id="song3-progress">
+                                    <div class="audio-player-progress-filled" id="song3-progress-filled"></div>
+                                </div>
+                                <div class="audio-player-time" id="song3-time">0:00 / 0:00</div>
+                                <div class="audio-player-volume">
+                                    <button class="audio-player-btn" id="song3-mute-btn"><i class="fas fa-volume-up"></i></button>
+                                    <input type="range" id="song3-volume" min="0" max="1" step="0.1" value="0.7">
+                                </div>
+                            </div>
+                            <div class="audio-player-info">
+                                <span id="song3-name">No song selected</span>
+                                <button class="audio-player-btn" id="song3-upload-btn"><i class="fas fa-upload"></i> Upload</button>
+                                <input type="file" id="song3-upload" accept="audio/*" style="display: none;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h3>Voice Claim</h3>
+                        <div class="voice-claim-card">
+                            <div class="audio-player" id="voice-claim-player">
+                                <div class="audio-player-controls">
+                                    <button class="audio-player-btn" id="voice-play-btn"><i class="fas fa-play"></i></button>
+                                    <button class="audio-player-btn" id="voice-pause-btn" style="display: none;"><i class="fas fa-pause"></i></button>
+                                    <div class="audio-player-progress" id="voice-progress">
+                                        <div class="audio-player-progress-filled" id="voice-progress-filled"></div>
+                                    </div>
+                                    <div class="audio-player-time" id="voice-time">0:00 / 0:00</div>
+                                    <div class="audio-player-volume">
+                                        <button class="audio-player-btn" id="voice-mute-btn"><i class="fas fa-volume-up"></i></button>
+                                        <input type="range" id="voice-volume" min="0" max="1" step="0.1" value="0.7">
+                                    </div>
+                                </div>
+                                <div class="audio-player-info">
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="voice-media-name">Media Name</label>
+                                            <input type="text" id="voice-media-name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="voice-actor-name">Voice Actor</label>
+                                            <input type="text" id="voice-actor-name">
+                                        </div>
+                                    </div>
+                                    <button class="audio-player-btn" id="voice-upload-btn"><i class="fas fa-upload"></i> Upload</button>
+                                    <input type="file" id="voice-claim-upload" accept="audio/*" style="display: none;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h3>Inventory</h3>
+                        <div class="inventory-grid" id="inventory-grid">
+                            <!-- Inventory items will be added here -->
+                        </div>
+                        <button type="button" id="add-inventory-item" style="margin-top: 10px;"><i class="fas fa-plus"></i> Add Item</button>
+                        <input type="file" id="inventory-upload" accept="image/*" multiple style="display: none;">
+                    </div>
+
+                    <div class="form-group">
+                        <h3>Outfits</h3>
+                        <div class="outfits-grid" id="outfits-grid">
+                            <!-- Outfit items will be added here -->
+                        </div>
+                        <button type="button" id="add-outfit-item" style="margin-top: 10px;"><i class="fas fa-plus"></i> Add Outfit</button>
+                        <input type="file" id="outfits-upload" accept="image/*" multiple style="display: none;">
+                    </div>
+                    
+                    <div class="form-group">
+                        <h3>Collectables</h3>
+                        <div class="collectables-grid" id="collectables-grid">
+                            <!-- Collectable items will be added here -->
+                        </div>
+                        <button type="button" id="add-collectable-item" style="margin-top: 10px;"><i class="fas fa-plus"></i> Add Collectable</button>
+                        <input type="file" id="collectables-upload" accept="image/*" multiple style="display: none;">
+                    </div>
+
+                    <div class="inanimal-section">
+                        <h2>Inanimal Information</h2>
+                        <div class="form-group">
+                            <label for="inanimal-image">Inanimal Image</label>
+                            <div class="drag-drop-container">
+                                <div class="drag-drop-box" id="inanimal-image-box">
+                                    <div class="instructions">Drag & drop image here or click to upload</div>
+                                    <input type="file" id="inanimal-image" accept="image/*" class="image-upload">
+                                    <button class="delete-media-btn">×</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="inanimal-animal">What animal it is inspired by</label>
+                            <input type="text" id="inanimal-animal">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="inanimal-personality">Personality</label>
+                            <textarea id="inanimal-personality"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="inanimal-location">Location in House</label>
+                            <input type="text" id="inanimal-location">
+                        </div>
+                    </div>
+
+                    <div class="development-section">
+                        <h2>Character Development</h2>
+                        <div class="development-tabs">
+                            <button class="development-tab active" data-tab="love">Love Route</button>
+                            <button class="development-tab" data-tab="hate">Hate Route</button>
+                            <button class="development-tab" data-tab="friend">Friend Route</button>
+                        </div>
+                        
+                        <div id="love-development" class="development-content active">
+                            <textarea id="love-development-text" placeholder="How will this character change during the love route?"></textarea>
+                        </div>
+                        
+                        <div id="hate-development" class="development-content">
+                            <textarea id="hate-development-text" placeholder="How will this character change during the hate route?"></textarea>
+                        </div>
+                        
+                        <div id="friend-development" class="development-content">
+                            <textarea id="friend-development-text" placeholder="How will this character change during the friend route?"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="oc-section">
+                        <h2>Relationships</h2>
+                        <div class="relationships-graph">
+                            <div class="relationship-category">
+                                <h3>Friends (Yellow)</h3>
+                                <div class="relationship-options" id="friends-options">
+                                    <!-- Options will be populated by JavaScript -->
+                                </div>
+                            </div>
+                            
+                            <div class="relationship-category">
+                                <h3>Enemies (Red)</h3>
+                                <div class="relationship-options" id="enemies-options">
+                                    <!-- Options will be populated by JavaScript -->
+                                </div>
+                            </div>
+                            
+                            <div class="relationship-category">
+                                <h3>Romantic (Green)</h3>
+                                <div class="relationship-options" id="romantic-options">
+                                    <!-- Options will be populated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 30px;">
+                        <button type="button" id="save-character">Save Character</button>
+                        <button type="button" id="clear-form" style="margin-left: 15px; background-color: #666;">Clear Form</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Gallery Tab -->
+        <div id="gallery" class="tab-content">
+            <div class="search-filter">
+                <input type="text" id="search-name" placeholder="Search by name...">
+                <select id="filter-gender">
+                    <option value="">All Genders</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="non-binary">Non-binary</option>
+                    <option value="other">Other</option>
+                </select>
+                <select id="filter-object">
+                    <option value="">All Objects</option>
+                    <!-- Object options will be populated by JavaScript -->
+                </select>
+            </div>
+
+            <div class="gallery" id="character-gallery">
+                <!-- Character cards will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Statistics Tab -->
+        <div id="stats" class="tab-content">
+            <div class="stats-section">
+                <h2>Character Statistics</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h4>Total Characters</h4>
+                        <p id="total-characters">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Male Characters</h4>
+                        <p id="male-count">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Female Characters</h4>
+                        <p id="female-count">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Non-binary Characters</h4>
+                        <p id="nb-count">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Average Age</h4>
+                        <p id="avg-age">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h2>Gender Distribution</h2>
+                <canvas id="gender-chart"></canvas>
+            </div>
+            
+            <div class="chart-container">
+                <h2>Age Distribution</h2>
+                <canvas id="age-chart"></canvas>
+            </div>
+            
+            <div class="chart-container">
+                <h2>Object Distribution</h2>
+                <canvas id="object-chart"></canvas>
+            </div>
+
+            <div class="character-form" style="margin-top: 30px;">
+                <h2>Data Management</h2>
+                <div class="form-group">
+                    <button type="button" id="export-data">Export All Data</button>
+                    <button type="button" id="import-data" style="margin-left: 15px;">Import Data</button>
+                    <input type="file" id="import-file" accept=".json" style="display: none;">
+                    <button type="button" id="clear-all-data" style="margin-left: 15px; background-color: var(--red);">Clear All Data</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Character data storage
+        let characters = JSON.parse(localStorage.getItem('oc-characters')) || [];
+        let currentEditIndex = -1;
+
+        // Relationship options data
+        const relationshipOptions = [
+            'Abel', 'Airyn', 'Amir', 'Arma', 'Artt', 'Barry Styles', 'Bathsheba', 'Beau', 
+            'Ben-Hwa', 'Betty', 'Beverly', 'Bodhi', 'Bobby Pinn', 'Cabrizzio', 'Cam', 
+            'Captain Jacques Pierrot', 'Celia', 'Chairemi', 'Chance', 'Connie', 'Curt', 
+            'Daemon', 'Daisuke', 'Dante', 'Dasha', 'Diana', 'Dirk', 'Dishy', 'Dolly', 
+            'Dorian', 'Doug', 'Dunk', 'Drysdale', 'Eddie', 'Fantina', 'Farya', 'Florence', 
+            'Freddy', 'Friar Errol', 'Gaia', 'Hank(s)', 'Harper', 'Hector', 'Henry Hoove', 
+            'Hero Hime', 'Holly', 'I, Ronaldini', 'Jean Loo Pissoir', 'Jerry', 'Johnny Splash', 
+            'Keith', 'Keyes', 'Koa', 'Kopi', 'Kristof', 'Lucinda Lavish', 'Luke Nuke\'m', 'Lux', 
+            'Lyric', 'Mac', 'Maggie', 'Mateo', 'Memoria', 'Michael Transaction', 'Miranda', 
+            'Mitchell Linn', 'Monique', 'Nightmare', 'Parker', 'Penelope', 'Phoenicia', 'Prissy', 
+            'Rainey', 'Rebel', 'Reggie', 'River', 'Rod', 'Rongomaiwhenua', 'Sam', 'The Sassy Chap', 
+            'Scandalabra', 'Shelley', 'Sinclaire', 'Skylar', 'Sophia', 'Stefan', 'Stella', 
+            'Stepford', 'Teddy', 'Telly', 'Textbox-Chan', 'Timothy', 'Tina', 'Tony', 'Tydus', 
+            'Tyrell', 'Vaughn', 'Volt', 'Wallace', 'Washford', 'Willi', 'Winnifred', 'Wyndolyn', 
+            'XxXShadowl0rd420Xxx', 'Zoey Bennett'
+        ];
+
+        // DOM Elements
+        const characterForm = document.getElementById('character-form');
+        const saveButton = document.getElementById('save-character');
+        const clearButton = document.getElementById('clear-form');
+        const gallery = document.getElementById('character-gallery');
+        const searchNameInput = document.getElementById('search-name');
+        const filterGenderSelect = document.getElementById('filter-gender');
+        const filterObjectSelect = document.getElementById('filter-object');
+        const exportButton = document.getElementById('export-data');
+        const importButton = document.getElementById('import-data');
+        const importFileInput = document.getElementById('import-file');
+        const clearAllButton = document.getElementById('clear-all-data');
+        const mainImageBox = document.getElementById('main-image-box');
+        let imageInput = document.getElementById('character-image');
+        const hairstyleBox = document.getElementById('hairstyle-box');
+        const featuresBox = document.getElementById('features-box');
+        const inanimalImageBox = document.getElementById('inanimal-image-box');
+
+        // Audio Players
+        const themePlayer = {
+            audio: new Audio(),
+            playBtn: document.getElementById('theme-play-btn'),
+            pauseBtn: document.getElementById('theme-pause-btn'),
+            progress: document.getElementById('theme-progress'),
+            progressFilled: document.getElementById('theme-progress-filled'),
+            timeDisplay: document.getElementById('theme-time'),
+            muteBtn: document.getElementById('theme-mute-btn'),
+            volumeControl: document.getElementById('theme-volume'),
+            uploadBtn: document.getElementById('theme-upload-btn'),
+            uploadInput: document.getElementById('theme-song-upload'),
+            songName: document.getElementById('theme-song-name')
+        };
+
+        const song2Player = {
+            audio: new Audio(),
+            playBtn: document.getElementById('song2-play-btn'),
+            pauseBtn: document.getElementById('song2-pause-btn'),
+            progress: document.getElementById('song2-progress'),
+            progressFilled: document.getElementById('song2-progress-filled'),
+            timeDisplay: document.getElementById('song2-time'),
+            muteBtn: document.getElementById('song2-mute-btn'),
+            volumeControl: document.getElementById('song2-volume'),
+            uploadBtn: document.getElementById('song2-upload-btn'),
+            uploadInput: document.getElementById('song2-upload'),
+            songName: document.getElementById('song2-name')
+        };
+
+        const song3Player = {
+            audio: new Audio(),
+            playBtn: document.getElementById('song3-play-btn'),
+            pauseBtn: document.getElementById('song3-pause-btn'),
+            progress: document.getElementById('song3-progress'),
+            progressFilled: document.getElementById('song3-progress-filled'),
+            timeDisplay: document.getElementById('song3-time'),
+            muteBtn: document.getElementById('song3-mute-btn'),
+            volumeControl: document.getElementById('song3-volume'),
+            uploadBtn: document.getElementById('song3-upload-btn'),
+            uploadInput: document.getElementById('song3-upload'),
+            songName: document.getElementById('song3-name')
+        };
+
+        const voicePlayer = {
+            audio: new Audio(),
+            playBtn: document.getElementById('voice-play-btn'),
+            pauseBtn: document.getElementById('voice-pause-btn'),
+            progress: document.getElementById('voice-progress'),
+            progressFilled: document.getElementById('voice-progress-filled'),
+            timeDisplay: document.getElementById('voice-time'),
+            muteBtn: document.getElementById('voice-mute-btn'),
+            volumeControl: document.getElementById('voice-volume'),
+            uploadBtn: document.getElementById('voice-upload-btn'),
+            uploadInput: document.getElementById('voice-claim-upload'),
+            mediaName: document.getElementById('voice-media-name'),
+            actorName: document.getElementById('voice-actor-name')
+        };
+
+        // Initialize audio players
+        function initAudioPlayer(player) {
+            // Play/Pause
+            player.playBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                player.audio.play();
+                player.playBtn.style.display = 'none';
+                player.pauseBtn.style.display = 'block';
+            });
+
+            player.pauseBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                player.audio.pause();
+                player.pauseBtn.style.display = 'none';
+                player.playBtn.style.display = 'block';
+            });
+
+            // Progress bar
+            player.audio.addEventListener('timeupdate', () => {
+                const currentTime = player.audio.currentTime;
+                const duration = player.audio.duration || 1;
+                const progressPercent = (currentTime / duration) * 100;
+                player.progressFilled.style.width = `${progressPercent}%`;
+                
+                // Update time display
+                const currentMinutes = Math.floor(currentTime / 60);
+                const currentSeconds = Math.floor(currentTime % 60).toString().padStart(2, '0');
+                const durationMinutes = Math.floor(duration / 60);
+                const durationSeconds = Math.floor(duration % 60).toString().padStart(2, '0');
+                player.timeDisplay.textContent = `${currentMinutes}:${currentSeconds} / ${durationMinutes}:${durationSeconds}`;
+            });
+
+            // Click on progress bar to seek
+            player.progress.addEventListener('click', (e) => {
+                e.preventDefault();
+                const rect = player.progress.getBoundingClientRect();
+                const pos = (e.clientX - rect.left) / rect.width;
+                player.audio.currentTime = pos * player.audio.duration;
+            });
+
+            // Volume control
+            player.volumeControl.addEventListener('input', (e) => {
+                e.preventDefault();
+                player.audio.volume = e.target.value;
+                if (player.audio.volume > 0) {
+                    player.audio.muted = false;
+                    player.muteBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                }
+            });
+
+            // Mute button
+            player.muteBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                player.audio.muted = !player.audio.muted;
+                if (player.audio.muted) {
+                    player.muteBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                } else {
+                    player.muteBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                }
+            });
+
+            // Handle audio upload
+            player.uploadBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                player.uploadInput.click();
+            });
+
+            player.uploadInput.addEventListener('change', (e) => {
+                e.preventDefault();
+                if (e.target.files.length) {
+                    const file = e.target.files[0];
+                    const url = URL.createObjectURL(file);
+                    player.audio.src = url;
+                    player.songName ? player.songName.textContent = file.name : null;
+                    
+                    // Enable play button
+                    player.playBtn.disabled = false;
+                    
+                    // Reset time display
+                    player.audio.addEventListener('loadedmetadata', () => {
+                        const duration = player.audio.duration;
+                        const minutes = Math.floor(duration / 60);
+                        const seconds = Math.floor(duration % 60).toString().padStart(2, '0');
+                        player.timeDisplay.textContent = `0:00 / ${minutes}:${seconds}`;
+                    });
+                }
+            });
+
+            // When audio ends
+            player.audio.addEventListener('ended', () => {
+                player.pauseBtn.style.display = 'none';
+                player.playBtn.style.display = 'block';
+                player.progressFilled.style.width = '0%';
+                player.audio.currentTime = 0;
+            });
+        }
+
+        // Tab functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and contents
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content
+                tab.classList.add('active');
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(`${tabId}`).classList.add('active');
+                
+                // If gallery tab is activated, refresh the gallery
+                if (tabId === 'gallery') {
+                    renderGallery();
+                }
+                
+                // If stats tab is activated, update statistics
+                if (tabId === 'stats') {
+                    updateStatistics();
+                }
+            });
+        });
+
+        // Development tab functionality
+        document.querySelectorAll('.development-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and contents
+                document.querySelectorAll('.development-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.development-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content
+                tab.classList.add('active');
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(`${tabId}-development`).classList.add('active');
+            });
+        });
+
+        // Initialize drag and drop
+        function initDragDrop() {
+            // Handle drag over
+            function handleDragOver(e) {
+                e.preventDefault();
+                this.style.borderColor = '#EBAC00';
+                this.style.backgroundColor = 'rgba(62, 132, 237, 0.3)';
+            }
+            
+            // Handle drag leave
+            function handleDragLeave() {
+                this.style.borderColor = '#EBAC00';
+                this.style.backgroundColor = 'rgba(62, 132, 237, 0.2)';
+            }
+            
+            // Handle drop
+            function handleDrop(e) {
+                e.preventDefault();
+                this.style.borderColor = '#EBAC00';
+                this.style.backgroundColor = 'rgba(62, 132, 237, 0.2)';
+                
+                if (e.dataTransfer.files.length) {
+                    const input = this.querySelector('input');
+                    input.files = e.dataTransfer.files;
+                    
+                    if (input.id === 'character-image' || input.id === 'character-hairstyle' || input.id === 'inanimal-image') {
+                        handleImageUpload(input.files[0], this);
+                    } else if (input.id === 'character-features-images') {
+                        handleMultipleUpload(input.files, this);
+                    }
+                }
+            }
+            
+            // Initialize all drag-drop boxes
+            [mainImageBox, hairstyleBox, featuresBox, inanimalImageBox].forEach(box => {
+                box.addEventListener('dragover', handleDragOver);
+                box.addEventListener('dragleave', handleDragLeave);
+                box.addEventListener('drop', handleDrop);
+                
+                const input = box.querySelector('input');
+                input.addEventListener('change', () => {
+                    if (input.files.length) {
+                        if (input.id === 'character-image' || input.id === 'character-hairstyle' || input.id === 'inanimal-image') {
+                            handleImageUpload(input.files[0], box);
+                        } else if (input.id === 'character-features-images') {
+                            handleMultipleUpload(input.files, box);
+                        }
+                    }
+                });
+                
+                const deleteBtn = box.querySelector('.delete-media-btn');
+                deleteBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    resetBox(box);
+                });
+            });
+        }
+
+        // Handle image upload
+        function handleImageUpload(file, box) {
+            if (!file.type.match('image.*')) {
+                alert('Please upload an image file');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                displayImage(e.target.result, box);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Handle multiple files upload
+        function handleMultipleUpload(files, box) {
+            box.innerHTML = '';
+            
+            // Create a container for multiple items
+            const container = document.createElement('div');
+            container.style.display = 'grid';
+            container.style.gridTemplateColumns = 'repeat(auto-fill, minmax(100px, 1fr))';
+            container.style.gap = '10px';
+            container.style.width = '100%';
+            container.style.height = '100%';
+            container.style.overflow = 'auto';
+            container.style.padding = '10px';
+            
+            Array.from(files).forEach(file => {
+                if (file.type.match('image.*')) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.style.maxWidth = '100%';
+                        img.style.maxHeight = '100px';
+                        img.style.objectFit = 'cover';
+                        img.style.borderRadius = '5px';
+                        container.appendChild(img);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            box.appendChild(container);
+            
+            // Add delete button
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'delete-media-btn';
+            deleteBtn.innerHTML = '×';
+            deleteBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                resetBox(box);
+            });
+            box.appendChild(deleteBtn);
+        }
+
+        // Display image in the box
+        function displayImage(src, box) {
+            const img = document.createElement('img');
+            img.src = src;
+            box.innerHTML = '';
+            box.appendChild(img);
+            
+            // Add delete button
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'delete-media-btn';
+            deleteBtn.innerHTML = '×';
+            deleteBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                resetBox(box);
+            });
+            box.appendChild(deleteBtn);
+        }
+
+        // Reset box to initial state
+        function resetBox(box) {
+            const inputId = box.querySelector('input').id;
+            box.innerHTML = `
+                <div class="instructions">Drag & drop files here or click to upload</div>
+                <input type="file" id="${inputId}" accept="image/*" ${inputId === 'character-features-images' ? 'multiple' : ''} class="image-upload">
+                <button class="delete-media-btn">×</button>
+            `;
+            // Reinitialize the box
+            const newInput = box.querySelector('input');
+            if (inputId === 'character-image') imageInput = newInput;
+            initDragDrop();
+        }
+
+        // Initialize color palettes
+        function initColorPalettes() {
+            // Eye color palette
+            const eyeColorPalette = document.getElementById('eye-color-palette');
+            const selectedEyeColor = document.getElementById('selected-eye-color');
+            const eyeColorPicker = document.getElementById('eye-color-picker');
+            const customEyeColor = document.getElementById('custom-eye-color');
+            
+            eyeColorPicker.addEventListener('click', () => {
+                customEyeColor.click();
+            });
+            
+            customEyeColor.addEventListener('input', () => {
+                eyeColorPicker.style.backgroundColor = customEyeColor.value;
+            });
+            
+            document.getElementById('add-eye-color').addEventListener('click', () => {
+                const color = customEyeColor.value;
+                addColorToPalette(color, eyeColorPalette, selectedEyeColor);
+            });
+            
+            // Hair color palette
+            const hairColorPalette = document.getElementById('hair-color-palette');
+            const selectedHairColor = document.getElementById('selected-hair-color');
+            const hairColorPicker = document.getElementById('hair-color-picker');
+            const customHairColor = document.getElementById('custom-hair-color');
+            
+            hairColorPicker.addEventListener('click', () => {
+                customHairColor.click();
+            });
+            
+            customHairColor.addEventListener('input', () => {
+                hairColorPicker.style.backgroundColor = customHairColor.value;
+            });
+            
+            document.getElementById('add-hair-color').addEventListener('click', () => {
+                const color = customHairColor.value;
+                addColorToPalette(color, hairColorPalette, selectedHairColor);
+            });
+            
+            // Skin color palette
+            const skinColorPalette = document.getElementById('skin-color-palette');
+            const selectedSkinColor = document.getElementById('selected-skin-color');
+            const skinColorPicker = document.getElementById('skin-color-picker');
+            const customSkinColor = document.getElementById('custom-skin-color');
+            
+            skinColorPicker.addEventListener('click', () => {
+                customSkinColor.click();
+            });
+            
+            customSkinColor.addEventListener('input', () => {
+                skinColorPicker.style.backgroundColor = customSkinColor.value;
+            });
+            
+            document.getElementById('add-skin-color').addEventListener('click', () => {
+                const color = customSkinColor.value;
+                addColorToPalette(color, skinColorPalette, selectedSkinColor);
+            });
+        }
+        
+        function addColorToPalette(color, palette, hiddenInput) {
+            const swatch = document.createElement('div');
+            swatch.className = 'color-swatch';
+            swatch.style.backgroundColor = color;
+            swatch.setAttribute('data-color', color);
+            
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'delete-color';
+            deleteBtn.innerHTML = '×';
+            deleteBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                swatch.remove();
+                if (hiddenInput.value === color) {
+                    hiddenInput.value = '';
+                }
+            });
+            
+            swatch.appendChild(deleteBtn);
+            
+            swatch.addEventListener('click', function(e) {
+                if (e.target !== deleteBtn) {
+                    palette.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+                    this.classList.add('active');
+                    hiddenInput.value = color;
+                }
+            });
+            
+            palette.appendChild(swatch);
+        }
+
+        // Initialize selector groups (pronouns, gender, sexuality)
+        function initSelectorGroups() {
+            document.querySelectorAll('.selector-group').forEach(group => {
+                const options = group.querySelectorAll('.selector-option:not(:has(input))');
+                const customInput = group.querySelector('input');
+                
+                options.forEach(option => {
+                    option.addEventListener('click', function() {
+                        // If this is not the custom option
+                        if (!this.contains(customInput)) {
+                            group.querySelectorAll('.selector-option').forEach(opt => opt.classList.remove('active'));
+                            this.classList.add('active');
+                            if (customInput) customInput.value = '';
+                        }
+                    });
+                });
+                
+                if (customInput) {
+                    customInput.addEventListener('focus', function() {
+                        group.querySelectorAll('.selector-option').forEach(opt => opt.classList.remove('active'));
+                    });
+                    
+                    customInput.addEventListener('input', function() {
+                        if (this.value) {
+                            group.querySelectorAll('.selector-option').forEach(opt => opt.classList.remove('active'));
+                        }
+                    });
+                }
+            });
+        }
+
+        // Initialize trait scales
+        function initTraitScales() {
+            document.querySelectorAll('.trait-dots').forEach(scale => {
+                const dots = scale.querySelectorAll('.trait-dot');
+                
+                dots.forEach(dot => {
+                    dot.addEventListener('click', function() {
+                        const value = parseInt(this.getAttribute('data-value'));
+                        dots.forEach((d, i) => {
+                            if (i < value) {
+                                d.classList.add('active');
+                            } else {
+                                d.classList.remove('active');
+                            }
+                        });
+                    });
+                });
+            });
+        }
+
+        // Initialize priority dots
+        function initPriorityDots() {
+            document.querySelectorAll('.priority-dots').forEach(scale => {
+                const dots = scale.querySelectorAll('.priority-dot');
+                
+                dots.forEach(dot => {
+                    dot.addEventListener('click', function() {
+                        const value = parseInt(this.getAttribute('data-value'));
+                        dots.forEach((d, i) => {
+                            if (i < value) {
+                                d.classList.add('active');
+                            } else {
+                                d.classList.remove('active');
+                            }
+                        });
+                    });
+                });
+            });
+        }
+
+        // Initialize height converter
+        function initHeightConverter() {
+            const heightInput = document.getElementById('character-height');
+            const heightDisplay = document.getElementById('height-conversion');
+            
+            heightInput.addEventListener('input', () => {
+                const cm = parseFloat(heightInput.value) || 0;
+                const inches = cm * 0.393701;
+                const feet = Math.floor(inches / 12);
+                const remainingInches = Math.round(inches % 12);
+                heightDisplay.textContent = `${feet}'${remainingInches}"`;
+            });
+        }
+
+        // Initialize inventory, outfits and collectables
+        function initInventoryAndOutfits() {
+            const inventoryGrid = document.getElementById('inventory-grid');
+            const outfitsGrid = document.getElementById('outfits-grid');
+            const collectablesGrid = document.getElementById('collectables-grid');
+            const addInventoryBtn = document.getElementById('add-inventory-item');
+            const addOutfitBtn = document.getElementById('add-outfit-item');
+            const addCollectableBtn = document.getElementById('add-collectable-item');
+            const inventoryUpload = document.getElementById('inventory-upload');
+            const outfitsUpload = document.getElementById('outfits-upload');
+            const collectablesUpload = document.getElementById('collectables-upload');
+            
+            addInventoryBtn.addEventListener('click', () => {
+                inventoryUpload.click();
+            });
+            
+            addOutfitBtn.addEventListener('click', () => {
+                outfitsUpload.click();
+            });
+            
+            addCollectableBtn.addEventListener('click', () => {
+                collectablesUpload.click();
+            });
+            
+            inventoryUpload.addEventListener('change', (e) => {
+                if (e.target.files.length) {
+                    Array.from(e.target.files).forEach(file => {
+                        if (file.type.match('image.*')) {
+                            const reader = new FileReader();
+                            reader.onload = (event) => {
+                                addItem(event.target.result, inventoryGrid, 'inventory-item');
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    });
+                }
+            });
+            
+            outfitsUpload.addEventListener('change', (e) => {
+                if (e.target.files.length) {
+                    Array.from(e.target.files).forEach(file => {
+                        if (file.type.match('image.*')) {
+                            const reader = new FileReader();
+                            reader.onload = (event) => {
+                                addItem(event.target.result, outfitsGrid, 'outfit-item');
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    });
+                }
+            });
+            
+            collectablesUpload.addEventListener('change', (e) => {
+                if (e.target.files.length) {
+                    Array.from(e.target.files).forEach(file => {
+                        if (file.type.match('image.*')) {
+                            const reader = new FileReader();
+                            reader.onload = (event) => {
+                                addItem(event.target.result, collectablesGrid, 'collectable-item');
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    });
+                }
+            });
+        }
+        
+        function addItem(imageSrc, container, className) {
+            const item = document.createElement('div');
+            item.className = className;
+            item.innerHTML = `
+                <img src="${imageSrc}" alt="Item">
+                <input type="text" placeholder="Item name" style="width: 100%; margin-top: 5px;">
+                <button class="delete-media-btn" style="position: absolute; top: 5px; right: 5px;">×</button>
+            `;
+            
+            const deleteBtn = item.querySelector('.delete-media-btn');
+            deleteBtn.addEventListener('click', () => {
+                item.remove();
+            });
+            
+            container.appendChild(item);
+        }
+
+        // Initialize relationships graph
+        function initRelationshipsGraph() {
+            const friendsContainer = document.getElementById('friends-options');
+            const enemiesContainer = document.getElementById('enemies-options');
+            const romanticContainer = document.getElementById('romantic-options');
+            
+            // Clear existing options
+            friendsContainer.innerHTML = '';
+            enemiesContainer.innerHTML = '';
+            romanticContainer.innerHTML = '';
+            
+            // Create options for each category
+            relationshipOptions.forEach(character => {
+                // Friends (yellow)
+                const friendOption = document.createElement('div');
+                friendOption.className = 'relationship-option';
+                friendOption.textContent = character;
+                friendOption.addEventListener('click', () => {
+                    friendOption.classList.toggle('friends');
+                });
+                friendsContainer.appendChild(friendOption);
+                
+                // Enemies (red)
+                const enemyOption = document.createElement('div');
+                enemyOption.className = 'relationship-option';
+                enemyOption.textContent = character;
+                enemyOption.addEventListener('click', () => {
+                    enemyOption.classList.toggle('enemies');
+                });
+                enemiesContainer.appendChild(enemyOption);
+                
+                // Romantic (green)
+                const romanticOption = document.createElement('div');
+                romanticOption.className = 'relationship-option';
+                romanticOption.textContent = character;
+                romanticOption.addEventListener('click', () => {
+                    romanticOption.classList.toggle('romantic');
+                });
+                romanticContainer.appendChild(romanticOption);
+            });
+        }
+
+        // Save character function
+        function saveCharacter() {
+            // Get form values
+            const name = document.getElementById('character-name').value;
+            if (!name) {
+                alert('Character name is required!');
+                return;
+            }
+            
+            const nickname = document.getElementById('character-nickname').value;
+            const dob = document.getElementById('character-dob').value;
+            
+            // Get pronouns
+            let pronouns = '';
+            const activePronoun = document.querySelector('#pronoun-selector .selector-option.active');
+            if (activePronoun) {
+                pronouns = activePronoun.getAttribute('data-value');
+                if (pronouns === 'custom') {
+                    pronouns = document.getElementById('custom-pronoun').value;
+                }
+            }
+            
+            // Get sexuality
+            let sexuality = '';
+            const activeSexuality = document.querySelector('#sexuality-selector .selector-option.active');
+            if (activeSexuality) {
+                sexuality = activeSexuality.getAttribute('data-value');
+                if (sexuality === 'other') {
+                    sexuality = document.getElementById('custom-sexuality').value;
+                }
+            }
+            
+            const age = document.getElementById('character-age').value;
+            
+            // Get gender
+            let gender = '';
+            const activeGender = document.querySelector('#gender-selector .selector-option.active');
+            if (activeGender) {
+                gender = activeGender.getAttribute('data-value');
+                if (gender === 'other') {
+                    gender = document.getElementById('custom-gender').value;
+                }
+            }
+            
+            const object = document.getElementById('character-object').value;
+            const location = document.getElementById('character-location').value;
+            const personality = document.getElementById('character-personality').value;
+            const backstory = document.getElementById('character-backstory').value;
+            const abilities = document.getElementById('character-abilities').value;
+            const features = document.getElementById('character-features').value;
+            const job = document.getElementById('character-job').value;
+            const height = document.getElementById('character-height').value;
+            const weight = document.getElementById('character-weight').value;
+            const bodyType = document.getElementById('character-body-type').value;
+            
+            // Get colors
+            const eyeColor = document.getElementById('selected-eye-color').value;
+            const hairColor = document.getElementById('selected-hair-color').value;
+            const skinColor = document.getElementById('selected-skin-color').value;
+            
+            // Get personality traits
+            const personalityTraits = {
+                niceMean: getTraitValue('nice-mean'),
+                braveCoward: getTraitValue('brave-coward'),
+                pacifistViolent: getTraitValue('pacifist-violent'),
+                extrovertIntrovert: getTraitValue('extrovert-introvert'),
+                idealisticPragmatic: getTraitValue('idealistic-pragmatic'),
+                wiseDull: getTraitValue('wise-dull'),
+                selflessSelfish: getTraitValue('selfless-selfish'),
+                leaderFollower: getTraitValue('leader-follower'),
+                forgivingUnforgiving: getTraitValue('forgiving-unforgiving'),
+                honestDeceptive: getTraitValue('honest-deceptive')
+            };
+            
+            // Get priorities
+            const priorities = {
+                work: getPriorityValue('priority-work'),
+                love: getPriorityValue('priority-love'),
+                family: getPriorityValue('priority-family'),
+                friends: getPriorityValue('priority-friends'),
+                wealth: getPriorityValue('priority-wealth'),
+                praise: getPriorityValue('priority-praise'),
+                home: getPriorityValue('priority-home'),
+                health: getPriorityValue('priority-health'),
+                truth: getPriorityValue('priority-truth'),
+                justice: getPriorityValue('priority-justice'),
+                fame: getPriorityValue('priority-fame'),
+                power: getPriorityValue('priority-power')
+            };
+            
+            // Get image if exists
+            let imageUrl = '';
+            const img = mainImageBox.querySelector('img');
+            if (img) {
+                imageUrl = img.src;
+            }
+            
+            // Get hairstyle image if exists
+            let hairstyleUrl = '';
+            const hairstyleImg = hairstyleBox.querySelector('img');
+            if (hairstyleImg) {
+                hairstyleUrl = hairstyleImg.src;
+            }
+            
+            // Get features images if exist
+            const featuresImages = [];
+            const featuresImgs = featuresBox.querySelectorAll('img');
+            featuresImgs.forEach(img => {
+                featuresImages.push(img.src);
+            });
+            
+            // Get theme songs if exist
+            const themeSongs = [];
+            if (themePlayer.audio.src) {
+                themeSongs.push({
+                    url: themePlayer.audio.src,
+                    name: themePlayer.songName.textContent
+                });
+            }
+            if (song2Player.audio.src) {
+                themeSongs.push({
+                    url: song2Player.audio.src,
+                    name: song2Player.songName.textContent
+                });
+            }
+            if (song3Player.audio.src) {
+                themeSongs.push({
+                    url: song3Player.audio.src,
+                    name: song3Player.songName.textContent
+                });
+            }
+            
+            // Get voice claim if exists
+            let voiceClaim = {
+                audio: voicePlayer.audio.src ? voicePlayer.audio.src : '',
+                mediaName: voicePlayer.mediaName.value,
+                actorName: voicePlayer.actorName.value
+            };
+            
+            // Get inventory items
+            const inventory = [];
+            const inventoryItems = document.querySelectorAll('#inventory-grid .inventory-item');
+            inventoryItems.forEach(item => {
+                const img = item.querySelector('img');
+                const name = item.querySelector('input').value;
+                if (img) {
+                    inventory.push({
+                        image: img.src,
+                        name: name
+                    });
+                }
+            });
+            
+            // Get outfit items
+            const outfits = [];
+            const outfitItems = document.querySelectorAll('#outfits-grid .outfit-item');
+            outfitItems.forEach(item => {
+                const img = item.querySelector('img');
+                const name = item.querySelector('input').value;
+                if (img) {
+                    outfits.push({
+                        image: img.src,
+                        name: name
+                    });
+                }
+            });
+            
+            // Get collectable items
+            const collectables = [];
+            const collectableItems = document.querySelectorAll('#collectables-grid .collectable-item');
+            collectableItems.forEach(item => {
+                const img = item.querySelector('img');
+                const name = item.querySelector('input').value;
+                if (img) {
+                    collectables.push({
+                        image: img.src,
+                        name: name
+                    });
+                }
+            });
+            
+            // Get inanimal info
+            let inanimalImageUrl = '';
+            const inanimalImg = inanimalImageBox.querySelector('img');
+            if (inanimalImg) {
+                inanimalImageUrl = inanimalImg.src;
+            }
+            
+            const inanimal = {
+                imageUrl: inanimalImageUrl,
+                animal: document.getElementById('inanimal-animal').value,
+                personality: document.getElementById('inanimal-personality').value,
+                location: document.getElementById('inanimal-location').value
+            };
+            
+            // Get character development
+            const development = {
+                love: document.getElementById('love-development-text').value,
+                hate: document.getElementById('hate-development-text').value,
+                friend: document.getElementById('friend-development-text').value
+            };
+            
+            // Get relationships
+            const relationships = {
+                friends: Array.from(document.querySelectorAll('#friends-options .friends')).map(el => el.textContent),
+                enemies: Array.from(document.querySelectorAll('#enemies-options .enemies')).map(el => el.textContent),
+                romantic: Array.from(document.querySelectorAll('#romantic-options .romantic')).map(el => el.textContent)
+            };
+            
+            // Create character object
+            const character = {
+                name,
+                nickname,
+                dob,
+                pronouns,
+                sexuality,
+                age,
+                gender,
+                object,
+                location,
+                eyeColor,
+                hairColor,
+                skinColor,
+                imageUrl,
+                hairstyleUrl,
+                features,
+                featuresImages,
+                job,
+                height,
+                weight,
+                bodyType,
+                personality,
+                personalityTraits,
+                priorities,
+                backstory,
+                abilities,
+                themeSongs,
+                voiceClaim,
+                inventory,
+                outfits,
+                collectables,
+                inanimal,
+                development,
+                relationships,
+                createdAt: new Date().toISOString()
+            };
+            
+            // If editing, replace the existing character
+            if (currentEditIndex >= 0) {
+                characters[currentEditIndex] = character;
+                currentEditIndex = -1;
+            } else {
+                // Otherwise, add new character
+                characters.push(character);
+            }
+            
+            // Save to localStorage
+            localStorage.setItem('oc-characters', JSON.stringify(characters));
+            
+            // Refresh gallery and filters
+            renderGallery();
+            updateObjectFilter();
+            updateStatistics();
+            
+            // Clear form
+            clearForm();
+            
+            // Show success message
+            alert(`Character "${name}" saved successfully!`);
+            
+            // Switch to gallery tab
+            document.querySelector('.tab[data-tab="gallery"]').click();
+        }
+
+        // Helper function to get trait value
+        function getTraitValue(id) {
+            const dots = document.getElementById(id).querySelectorAll('.trait-dot');
+            let value = 0;
+            dots.forEach(dot => {
+                if (dot.classList.contains('active')) {
+                    value++;
+                }
+            });
+            return value;
+        }
+
+        // Helper function to get priority value
+        function getPriorityValue(id) {
+            const dots = document.getElementById(id).querySelectorAll('.priority-dot');
+            let value = 0;
+            dots.forEach(dot => {
+                if (dot.classList.contains('active')) {
+                    value++;
+                }
+            });
+            return value;
+        }
+
+        // Render gallery
+        function renderGallery(filteredCharacters = null) {
+            gallery.innerHTML = '';
+            
+            const charactersToDisplay = filteredCharacters || characters;
+            
+            if (charactersToDisplay.length === 0) {
+                gallery.innerHTML = '<p>No characters found. Create your first character!</p>';
+                return;
+            }
+            
+            charactersToDisplay.forEach((character, index) => {
+                const card = document.createElement('div');
+                card.className = 'character-card';
+                
+                // Format relationships for display
+                const formatRelationships = (type) => {
+                    return character.relationships && character.relationships[type] && character.relationships[type].length > 0 
+                        ? character.relationships[type].join(', ') 
+                        : 'None';
+                };
+                
+                card.innerHTML = `
+                    <img src="${character.imageUrl || 'https://via.placeholder.com/300x200?text=No+Image'}" class="character-image" alt="${character.name}">
+                    <h3>${character.name}</h3>
+                    <p><strong>Nickname:</strong> ${character.nickname || 'None'}</p>
+                    <p><strong>Age:</strong> ${character.age || 'Unknown'}</p>
+                    <p><strong>Gender:</strong> ${character.gender || 'Unknown'}</p>
+                    <p><strong>Pronouns:</strong> ${character.pronouns || 'Unknown'}</p>
+                    <p><strong>Object:</strong> ${character.object || 'Unknown'}</p>
+                    <p><strong>Location:</strong> ${character.location || 'Unknown'}</p>
+                    <p><strong>Friends:</strong> ${formatRelationships('friends')}</p>
+                    <p><strong>Enemies:</strong> ${formatRelationships('enemies')}</p>
+                    <p><strong>Romantic:</strong> ${formatRelationships('romantic')}</p>
+                    <div class="character-actions">
+                        <button class="edit-btn" data-index="${index}">Edit</button>
+                        <button class="delete-btn" data-index="${index}">Delete</button>
+                    </div>
+                `;
+                
+                // Add event listeners to buttons
+                const editBtn = card.querySelector('.edit-btn');
+                const deleteBtn = card.querySelector('.delete-btn');
+                
+                editBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    loadCharacter(index);
+                    document.querySelector('.tab[data-tab="creator"]').click();
+                });
+                
+                deleteBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    deleteCharacter(index);
+                });
+                
+                gallery.appendChild(card);
+            });
+        }
+
+        // Load character into form for editing
+        function loadCharacter(index) {
+            const character = characters[index];
+            currentEditIndex = index;
+            
+            // Basic info
+            document.getElementById('character-name').value = character.name || '';
+            document.getElementById('character-nickname').value = character.nickname || '';
+            document.getElementById('character-dob').value = character.dob || '';
+            document.getElementById('character-age').value = character.age || '';
+            document.getElementById('character-object').value = character.object || '';
+            document.getElementById('character-location').value = character.location || '';
+            document.getElementById('character-personality').value = character.personality || '';
+            document.getElementById('character-backstory').value = character.backstory || '';
+            document.getElementById('character-abilities').value = character.abilities || '';
+            document.getElementById('character-features').value = character.features || '';
+            document.getElementById('character-job').value = character.job || '';
+            document.getElementById('character-height').value = character.height || '';
+            document.getElementById('character-weight').value = character.weight || '';
+            document.getElementById('character-body-type').value = character.bodyType || '';
+            
+            // Set pronouns
+            if (character.pronouns) {
+                let pronounSet = false;
+                document.querySelectorAll('#pronoun-selector .selector-option').forEach(option => {
+                    if (option.getAttribute('data-value') === character.pronouns.toLowerCase()) {
+                        option.classList.add('active');
+                        pronounSet = true;
+                    }
+                });
+                
+                if (!pronounSet) {
+                    document.getElementById('custom-pronoun').value = character.pronouns;
+                }
+            }
+            
+            // Set sexuality
+            if (character.sexuality) {
+                let sexualitySet = false;
+                document.querySelectorAll('#sexuality-selector .selector-option').forEach(option => {
+                    if (option.getAttribute('data-value') === character.sexuality.toLowerCase()) {
+                        option.classList.add('active');
+                        sexualitySet = true;
+                    }
+                });
+                
+                if (!sexualitySet) {
+                    document.getElementById('custom-sexuality').value = character.sexuality;
+                }
+            }
+            
+            // Set gender
+            if (character.gender) {
+                let genderSet = false;
+                document.querySelectorAll('#gender-selector .selector-option').forEach(option => {
+                    if (option.getAttribute('data-value') === character.gender.toLowerCase()) {
+                        option.classList.add('active');
+                        genderSet = true;
+                    }
+                });
+                
+                if (!genderSet) {
+                    document.getElementById('custom-gender').value = character.gender;
+                }
+            }
+            
+            // Set colors
+            if (character.eyeColor) {
+                document.getElementById('selected-eye-color').value = character.eyeColor;
+                const eyeSwatches = document.querySelectorAll('#eye-color-palette .color-swatch');
+                eyeSwatches.forEach(swatch => {
+                    if (swatch.getAttribute('data-color') === character.eyeColor) {
+                        swatch.classList.add('active');
+                    }
+                });
+            }
+            
+            if (character.hairColor) {
+                document.getElementById('selected-hair-color').value = character.hairColor;
+                const hairSwatches = document.querySelectorAll('#hair-color-palette .color-swatch');
+                hairSwatches.forEach(swatch => {
+                    if (swatch.getAttribute('data-color') === character.hairColor) {
+                        swatch.classList.add('active');
+                    }
+                });
+            }
+            
+            if (character.skinColor) {
+                document.getElementById('selected-skin-color').value = character.skinColor;
+                const skinSwatches = document.querySelectorAll('#skin-color-palette .color-swatch');
+                skinSwatches.forEach(swatch => {
+                    if (swatch.getAttribute('data-color') === character.skinColor) {
+                        swatch.classList.add('active');
+                    }
+                });
+            }
+            
+            // Set images
+            if (character.imageUrl) {
+                displayImage(character.imageUrl, mainImageBox);
+            } else {
+                resetBox(mainImageBox);
+            }
+            
+            if (character.hairstyleUrl) {
+                displayImage(character.hairstyleUrl, hairstyleBox);
+            } else {
+                resetBox(hairstyleBox);
+            }
+            
+            // Set features images
+            if (character.featuresImages && character.featuresImages.length > 0) {
+                featuresBox.innerHTML = '';
+                const container = document.createElement('div');
+                container.style.display = 'grid';
+                container.style.gridTemplateColumns = 'repeat(auto-fill, minmax(100px, 1fr))';
+                container.style.gap = '10px';
+                container.style.width = '100%';
+                container.style.height = '100%';
+                container.style.overflow = 'auto';
+                container.style.padding = '10px';
+                
+                character.featuresImages.forEach(imgSrc => {
+                    const img = document.createElement('img');
+                    img.src = imgSrc;
+                    img.style.maxWidth = '100%';
+                    img.style.maxHeight = '100px';
+                    img.style.objectFit = 'cover';
+                    img.style.borderRadius = '5px';
+                    container.appendChild(img);
+                });
+                
+                featuresBox.appendChild(container);
+                
+                // Add delete button
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'delete-media-btn';
+                deleteBtn.innerHTML = '×';
+                deleteBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    resetBox(featuresBox);
+                });
+                featuresBox.appendChild(deleteBtn);
+            } else {
+                resetBox(featuresBox);
+            }
+            
+            // Set theme songs
+            if (character.themeSongs && character.themeSongs.length > 0) {
+                // First song
+                if (character.themeSongs[0]) {
+                    themePlayer.audio.src = character.themeSongs[0].url;
+                    themePlayer.songName.textContent = character.themeSongs[0].name || 'Theme song loaded';
+                    themePlayer.playBtn.disabled = false;
+                }
+                
+                // Second song
+                if (character.themeSongs[1]) {
+                    song2Player.audio.src = character.themeSongs[1].url;
+                    song2Player.songName.textContent = character.themeSongs[1].name || 'Theme song loaded';
+                    song2Player.playBtn.disabled = false;
+                }
+                
+                // Third song
+                if (character.themeSongs[2]) {
+                    song3Player.audio.src = character.themeSongs[2].url;
+                    song3Player.songName.textContent = character.themeSongs[2].name || 'Theme song loaded';
+                    song3Player.playBtn.disabled = false;
+                }
+            } else {
+                themePlayer.audio.src = '';
+                themePlayer.songName.textContent = 'No song selected';
+                themePlayer.playBtn.disabled = true;
+                song2Player.audio.src = '';
+                song2Player.songName.textContent = 'No song selected';
+                song2Player.playBtn.disabled = true;
+                song3Player.audio.src = '';
+                song3Player.songName.textContent = 'No song selected';
+                song3Player.playBtn.disabled = true;
+            }
+            
+            // Set voice claim
+            if (character.voiceClaim) {
+                voicePlayer.audio.src = character.voiceClaim.audio;
+                voicePlayer.mediaName.value = character.voiceClaim.mediaName || '';
+                voicePlayer.actorName.value = character.voiceClaim.actorName || '';
+                voicePlayer.playBtn.disabled = !character.voiceClaim.audio;
+            } else {
+                voicePlayer.audio.src = '';
+                voicePlayer.mediaName.value = '';
+                voicePlayer.actorName.value = '';
+                voicePlayer.playBtn.disabled = true;
+            }
+            
+            // Set inventory
+            const inventoryGrid = document.getElementById('inventory-grid');
+            inventoryGrid.innerHTML = '';
+            if (character.inventory && character.inventory.length > 0) {
+                character.inventory.forEach(item => {
+                    const itemElement = document.createElement('div');
+                    itemElement.className = 'inventory-item';
+                    itemElement.innerHTML = `
+                        <img src="${item.image}" alt="Inventory Item">
+                        <input type="text" placeholder="Item name" value="${item.name || ''}" style="width: 100%; margin-top: 5px;">
+                        <button class="delete-media-btn" style="position: absolute; top: 5px; right: 5px;">×</button>
+                    `;
+                    
+                    const deleteBtn = itemElement.querySelector('.delete-media-btn');
+                    deleteBtn.addEventListener('click', () => {
+                        itemElement.remove();
+                    });
+                    
+                    inventoryGrid.appendChild(itemElement);
+                });
+            }
+            
+            // Set outfits
+            const outfitsGrid = document.getElementById('outfits-grid');
+            outfitsGrid.innerHTML = '';
+            if (character.outfits && character.outfits.length > 0) {
+                character.outfits.forEach(outfit => {
+                    const outfitElement = document.createElement('div');
+                    outfitElement.className = 'outfit-item';
+                    outfitElement.innerHTML = `
+                        <img src="${outfit.image}" alt="Outfit">
+                        <input type="text" placeholder="Outfit name" value="${outfit.name || ''}" style="width: 100%; margin-top: 5px;">
+                        <button class="delete-media-btn" style="position: absolute; top: 5px; right: 5px;">×</button>
+                    `;
+                    
+                    const deleteBtn = outfitElement.querySelector('.delete-media-btn');
+                    deleteBtn.addEventListener('click', () => {
+                        outfitElement.remove();
+                    });
+                    
+                    outfitsGrid.appendChild(outfitElement);
+                });
+            }
+            
+            // Set collectables
+            const collectablesGrid = document.getElementById('collectables-grid');
+            collectablesGrid.innerHTML = '';
+            if (character.collectables && character.collectables.length > 0) {
+                character.collectables.forEach(collectable => {
+                    const collectableElement = document.createElement('div');
+                    collectableElement.className = 'collectable-item';
+                    collectableElement.innerHTML = `
+                        <img src="${collectable.image}" alt="Collectable">
+                        <input type="text" placeholder="Collectable name" value="${collectable.name || ''}" style="width: 100%; margin-top: 5px;">
+                        <button class="delete-media-btn" style="position: absolute; top: 5px; right: 5px;">×</button>
+                    `;
+                    
+                    const deleteBtn = collectableElement.querySelector('.delete-media-btn');
+                    deleteBtn.addEventListener('click', () => {
+                        collectableElement.remove();
+                    });
+                    
+                    collectablesGrid.appendChild(collectableElement);
+                });
+            }
+            
+            // Set inanimal info
+            if (character.inanimal) {
+                if (character.inanimal.imageUrl) {
+                    displayImage(character.inanimal.imageUrl, inanimalImageBox);
+                } else {
+                    resetBox(inanimalImageBox);
+                }
+                
+                document.getElementById('inanimal-animal').value = character.inanimal.animal || '';
+                document.getElementById('inanimal-personality').value = character.inanimal.personality || '';
+                document.getElementById('inanimal-location').value = character.inanimal.location || '';
+            } else {
+                resetBox(inanimalImageBox);
+                document.getElementById('inanimal-animal').value = '';
+                document.getElementById('inanimal-personality').value = '';
+                document.getElementById('inanimal-location').value = '';
+            }
+            
+            // Set character development
+            if (character.development) {
+                document.getElementById('love-development-text').value = character.development.love || '';
+                document.getElementById('hate-development-text').value = character.development.hate || '';
+                document.getElementById('friend-development-text').value = character.development.friend || '';
+            } else {
+                document.getElementById('love-development-text').value = '';
+                document.getElementById('hate-development-text').value = '';
+                document.getElementById('friend-development-text').value = '';
+            }
+            
+            // Set personality traits
+            if (character.personalityTraits) {
+                setTraitValue('nice-mean', character.personalityTraits.niceMean);
+                setTraitValue('brave-coward', character.personalityTraits.braveCoward);
+                setTraitValue('pacifist-violent', character.personalityTraits.pacifistViolent);
+                setTraitValue('extrovert-introvert', character.personalityTraits.extrovertIntrovert);
+                setTraitValue('idealistic-pragmatic', character.personalityTraits.idealisticPragmatic);
+                setTraitValue('wise-dull', character.personalityTraits.wiseDull);
+                setTraitValue('selfless-selfish', character.personalityTraits.selflessSelfish);
+                setTraitValue('leader-follower', character.personalityTraits.leaderFollower);
+                setTraitValue('forgiving-unforgiving', character.personalityTraits.forgivingUnforgiving);
+                setTraitValue('honest-deceptive', character.personalityTraits.honestDeceptive);
+            }
+            
+            // Set priorities
+            if (character.priorities) {
+                setPriorityValue('priority-work', character.priorities.work);
+                setPriorityValue('priority-love', character.priorities.love);
+                setPriorityValue('priority-family', character.priorities.family);
+                setPriorityValue('priority-friends', character.priorities.friends);
+                setPriorityValue('priority-wealth', character.priorities.wealth);
+                setPriorityValue('priority-praise', character.priorities.praise);
+                setPriorityValue('priority-home', character.priorities.home);
+                setPriorityValue('priority-health', character.priorities.health);
+                setPriorityValue('priority-truth', character.priorities.truth);
+                setPriorityValue('priority-justice', character.priorities.justice);
+                setPriorityValue('priority-fame', character.priorities.fame);
+                setPriorityValue('priority-power', character.priorities.power);
+            }
+            
+            // Set relationships
+            if (character.relationships) {
+                // Clear all selections first
+                document.querySelectorAll('.relationship-option').forEach(option => {
+                    option.classList.remove('friends', 'enemies', 'romantic');
+                });
+                
+                // Set friends
+                character.relationships.friends?.forEach(friend => {
+                    const friendOptions = document.querySelectorAll('#friends-options .relationship-option');
+                    friendOptions.forEach(option => {
+                        if (option.textContent === friend) {
+                            option.classList.add('friends');
+                        }
+                    });
+                });
+                
+                // Set enemies
+                character.relationships.enemies?.forEach(enemy => {
+                    const enemyOptions = document.querySelectorAll('#enemies-options .relationship-option');
+                    enemyOptions.forEach(option => {
+                        if (option.textContent === enemy) {
+                            option.classList.add('enemies');
+                        }
+                    });
+                });
+                
+                // Set romantic
+                character.relationships.romantic?.forEach(romantic => {
+                    const romanticOptions = document.querySelectorAll('#romantic-options .relationship-option');
+                    romanticOptions.forEach(option => {
+                        if (option.textContent === romantic) {
+                            option.classList.add('romantic');
+                        }
+                    });
+                });
+            }
+            
+            // Change save button text
+            saveButton.textContent = 'Update Character';
+        }
+
+        // Helper function to set trait value
+        function setTraitValue(id, value) {
+            const dots = document.getElementById(id).querySelectorAll('.trait-dot');
+            dots.forEach((dot, i) => {
+                if (i < value) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        // Helper function to set priority value
+        function setPriorityValue(id, value) {
+            const dots = document.getElementById(id).querySelectorAll('.priority-dot');
+            dots.forEach((dot, i) => {
+                if (i < value) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        // Delete character
+        function deleteCharacter(index) {
+            if (confirm(`Are you sure you want to delete "${characters[index].name}"? This cannot be undone.`)) {
+                const deletedName = characters[index].name;
+                characters.splice(index, 1);
+                localStorage.setItem('oc-characters', JSON.stringify(characters));
+                renderGallery();
+                updateObjectFilter();
+                updateStatistics();
+                
+                // If we're editing this character, clear the form
+                if (currentEditIndex === index) {
+                    clearForm();
+                    currentEditIndex = -1;
+                } else if (currentEditIndex > index) {
+                    // Adjust current edit index if it's after the deleted character
+                    currentEditIndex--;
+                }
+                
+                alert(`Character "${deletedName}" has been deleted.`);
+            }
+        }
+
+        // Clear form
+        function clearForm() {
+            characterForm.reset();
+            currentEditIndex = -1;
+            
+            // Reset all boxes
+            resetBox(mainImageBox);
+            resetBox(hairstyleBox);
+            resetBox(featuresBox);
+            resetBox(inanimalImageBox);
+            
+            // Reset audio players
+            themePlayer.audio.src = '';
+            themePlayer.songName.textContent = 'No song selected';
+            themePlayer.playBtn.disabled = true;
+            themePlayer.pauseBtn.style.display = 'none';
+            themePlayer.playBtn.style.display = 'block';
+            themePlayer.progressFilled.style.width = '0%';
+            themePlayer.timeDisplay.textContent = '0:00 / 0:00';
+            
+            song2Player.audio.src = '';
+            song2Player.songName.textContent = 'No song selected';
+            song2Player.playBtn.disabled = true;
+            song2Player.pauseBtn.style.display = 'none';
+            song2Player.playBtn.style.display = 'block';
+            song2Player.progressFilled.style.width = '0%';
+            song2Player.timeDisplay.textContent = '0:00 / 0:00';
+            
+            song3Player.audio.src = '';
+            song3Player.songName.textContent = 'No song selected';
+            song3Player.playBtn.disabled = true;
+            song3Player.pauseBtn.style.display = 'none';
+            song3Player.playBtn.style.display = 'block';
+            song3Player.progressFilled.style.width = '0%';
+            song3Player.timeDisplay.textContent = '0:00 / 0:00';
+            
+            voicePlayer.audio.src = '';
+            voicePlayer.mediaName.value = '';
+            voicePlayer.actorName.value = '';
+            voicePlayer.playBtn.disabled = true;
+            voicePlayer.pauseBtn.style.display = 'none';
+            voicePlayer.playBtn.style.display = 'block';
+            voicePlayer.progressFilled.style.width = '0%';
+            voicePlayer.timeDisplay.textContent = '0:00 / 0:00';
+            
+            // Reset inventory, outfits and collectables
+            document.getElementById('inventory-grid').innerHTML = '';
+            document.getElementById('outfits-grid').innerHTML = '';
+            document.getElementById('collectables-grid').innerHTML = '';
+            
+            // Reset all color selections
+            document.querySelectorAll('.color-swatch').forEach(swatch => {
+                swatch.classList.remove('active');
+            });
+            
+            document.getElementById('selected-eye-color').value = '';
+            document.getElementById('selected-hair-color').value = '';
+            document.getElementById('selected-skin-color').value = '';
+            
+            // Reset all selector options
+            document.querySelectorAll('.selector-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            
+            // Reset custom inputs
+            document.getElementById('custom-pronoun').value = '';
+            document.getElementById('custom-sexuality').value = '';
+            document.getElementById('custom-gender').value = '';
+            
+            // Reset all trait scales
+            document.querySelectorAll('.trait-dot').forEach(dot => {
+                dot.classList.remove('active');
+            });
+            
+            // Reset all priority dots
+            document.querySelectorAll('.priority-dot').forEach(dot => {
+                dot.classList.remove('active');
+            });
+            
+            // Reset all relationship selections
+            document.querySelectorAll('.relationship-option').forEach(option => {
+                option.classList.remove('friends', 'enemies', 'romantic');
+            });
+            
+            // Reset development tabs
+            document.getElementById('love-development-text').value = '';
+            document.getElementById('hate-development-text').value = '';
+            document.getElementById('friend-development-text').value = '';
+            
+            // Reset save button text
+            saveButton.textContent = 'Save Character';
+        }
+
+        // Update object filter options
+        function updateObjectFilter() {
+            const objectSet = new Set();
+            characters.forEach(character => {
+                if (character.object) {
+                    objectSet.add(character.object);
+                }
+            });
+            
+            const currentValue = filterObjectSelect.value;
+            filterObjectSelect.innerHTML = '<option value="">All Objects</option>';
+            
+            Array.from(objectSet).sort().forEach(object => {
+                const option = document.createElement('option');
+                option.value = object;
+                option.textContent = object;
+                filterObjectSelect.appendChild(option);
+            });
+            
+            // Restore previous selection if it still exists
+            if (currentValue && Array.from(objectSet).includes(currentValue)) {
+                filterObjectSelect.value = currentValue;
+            }
+        }
+
+        // Filter characters based on search and filters
+        function filterCharacters() {
+            const nameSearch = searchNameInput.value.toLowerCase();
+            const genderFilter = filterGenderSelect.value;
+            const objectFilter = filterObjectSelect.value;
+            
+            const filtered = characters.filter(character => {
+                const nameMatch = character.name.toLowerCase().includes(nameSearch);
+                const genderMatch = !genderFilter || character.gender?.toLowerCase() === genderFilter;
+                const objectMatch = !objectFilter || character.object?.toLowerCase() === objectFilter.toLowerCase();
+                
+                return nameMatch && genderMatch && objectMatch;
+            });
+            
+            renderGallery(filtered);
+        }
+
+        // Update statistics
+        function updateStatistics() {
+            document.getElementById('total-characters').textContent = characters.length;
+            
+            const genderCounts = {
+                male: 0,
+                female: 0,
+                'non-binary': 0,
+                other: 0
+            };
+            
+            const ageGroups = {
+                '0-17': 0,
+                '18-20': 0,
+                '21-25': 0,
+                '26-30': 0,
+                '31-35': 0,
+                '36-40': 0,
+                '41-45': 0,
+                '46-50': 0,
+                '51+': 0
+            };
+            
+            const objectCounts = {};
+            let totalAge = 0;
+            let ageCount = 0;
+            
+            characters.forEach(character => {
+                // Count genders
+                if (character.gender) {
+                    const gender = character.gender.toLowerCase();
+                    if (genderCounts.hasOwnProperty(gender)) {
+                        genderCounts[gender]++;
+                    } else {
+                        genderCounts.other++;
+                    }
+                }
+                
+                // Count objects
+                if (character.object) {
+                    objectCounts[character.object] = (objectCounts[character.object] || 0) + 1;
+                }
+                
+                // Calculate average age and age groups
+                if (character.age && !isNaN(character.age)) {
+                    const age = parseInt(character.age);
+                    totalAge += age;
+                    ageCount++;
+                    
+                    if (age <= 17) ageGroups['0-17']++;
+                    else if (age <= 20) ageGroups['18-20']++;
+                    else if (age <= 25) ageGroups['21-25']++;
+                    else if (age <= 30) ageGroups['26-30']++;
+                    else if (age <= 35) ageGroups['31-35']++;
+                    else if (age <= 40) ageGroups['36-40']++;
+                    else if (age <= 45) ageGroups['41-45']++;
+                    else if (age <= 50) ageGroups['46-50']++;
+                    else ageGroups['51+']++;
+                }
+            });
+            
+            // Update gender stats
+            document.getElementById('male-count').textContent = genderCounts.male;
+            document.getElementById('female-count').textContent = genderCounts.female;
+            document.getElementById('nb-count').textContent = genderCounts['non-binary'];
+            
+            // Calculate average age
+            const averageAge = ageCount > 0 ? Math.round(totalAge / ageCount) : 0;
+            document.getElementById('avg-age').textContent = averageAge;
+            
+            // Update charts
+            updateGenderChart(genderCounts);
+            updateAgeChart(ageGroups);
+            updateObjectChart(objectCounts);
+        }
+        
+        // Update gender chart
+        function updateGenderChart(genderCounts) {
+            const ctx = document.getElementById('gender-chart').getContext('2d');
+            
+            // Destroy previous chart if it exists
+            if (window.genderChart) {
+                window.genderChart.destroy();
+            }
+            
+            const data = {
+                labels: Object.keys(genderCounts),
+                datasets: [{
+                    data: Object.values(genderCounts),
+                    backgroundColor: [
+                        '#3E84ED',
+                        '#EBAC00',
+                        '#9c27b0',
+                        '#e91e63'
+                    ],
+                    borderWidth: 1
+                }]
+            };
+            
+            window.genderChart = new Chart(ctx, {
+                type: 'pie',
+                data: data,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Update age chart
+        function updateAgeChart(ageGroups) {
+            const ctx = document.getElementById('age-chart').getContext('2d');
+            
+            // Destroy previous chart if it exists
+            if (window.ageChart) {
+                window.ageChart.destroy();
+            }
+            
+            // Filter out empty age groups
+            const filteredLabels = [];
+            const filteredData = [];
+            
+            Object.entries(ageGroups).forEach(([label, count]) => {
+                if (count > 0) {
+                    filteredLabels.push(label);
+                    filteredData.push(count);
+                }
+            });
+            
+            const data = {
+                labels: filteredLabels,
+                datasets: [{
+                    data: filteredData,
+                    backgroundColor: [
+                        '#3E84ED',
+                        '#EBAC00',
+                        '#9c27b0',
+                        '#e91e63',
+                        '#ff9800',
+                        '#4caf50',
+                        '#00bcd4',
+                        '#607d8b',
+                        '#795548'
+                    ],
+                    borderWidth: 1
+                }]
+            };
+            
+            window.ageChart = new Chart(ctx, {
+                type: 'pie',
+                data: data,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Update object chart
+        function updateObjectChart(objectCounts) {
+            const ctx = document.getElementById('object-chart').getContext('2d');
+            
+            // Destroy previous chart if it exists
+            if (window.objectChart) {
+                window.objectChart.destroy();
+            }
+            
+            // Sort objects by count (descending) and limit to top 10
+            const sortedObjects = Object.entries(objectCounts)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10);
+            
+            const labels = sortedObjects.map(item => item[0]);
+            const data = sortedObjects.map(item => item[1]);
+            
+            const chartData = {
+                labels: labels,
+                datasets: [{
+                    data: data,
+                    backgroundColor: [
+                        '#3E84ED',
+                        '#EBAC00',
+                        '#9c27b0',
+                        '#e91e63',
+                        '#ff9800',
+                        '#4caf50',
+                        '#00bcd4',
+                        '#607d8b',
+                        '#795548',
+                        '#f44336'
+                    ],
+                    borderWidth: 1
+                }]
+            };
+            
+            window.objectChart = new Chart(ctx, {
+                type: 'pie',
+                data: chartData,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        }
+                    }
+                }
+            });
+        }
+
+        // Export data
+        function exportData() {
+            const dataStr = JSON.stringify(characters, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = 'oc-characters.json';
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+        }
+
+        // Import data
+        function importData() {
+            importFileInput.click();
+        }
+
+        // Handle imported file
+        function handleImportedFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const importedData = JSON.parse(e.target.result);
+                    if (Array.isArray(importedData)) {
+                        if (confirm(`This will import ${importedData.length} characters. Continue?`)) {
+                            characters = importedData;
+                            localStorage.setItem('oc-characters', JSON.stringify(characters));
+                            renderGallery();
+                            updateObjectFilter();
+                            updateStatistics();
+                            alert('Data imported successfully!');
+                        }
+                    } else {
+                        alert('Invalid data format. Expected an array of characters.');
+                    }
+                } catch (error) {
+                    alert('Error parsing file: ' + error.message);
+                }
+            };
+            reader.readAsText(file);
+            
+            // Reset file input
+            event.target.value = '';
+        }
+
+        // Clear all data
+        function clearAllData() {
+            if (confirm('WARNING: This will permanently delete ALL character data. Are you absolutely sure?')) {
+                characters = [];
+                localStorage.removeItem('oc-characters');
+                renderGallery();
+                updateObjectFilter();
+                updateStatistics();
+                clearForm();
+                alert('All character data has been cleared.');
+            }
+        }
+
+        // Initialize the app
+        function init() {
+            // Initialize drag and drop
+            initDragDrop();
+            
+            // Initialize audio players
+            initAudioPlayer(themePlayer);
+            initAudioPlayer(song2Player);
+            initAudioPlayer(song3Player);
+            initAudioPlayer(voicePlayer);
+            
+            // Initialize color palettes
+            initColorPalettes();
+            
+            // Initialize selector groups
+            initSelectorGroups();
+            
+            // Initialize trait scales
+            initTraitScales();
+            
+            // Initialize priority dots
+            initPriorityDots();
+            
+            // Initialize height converter
+            initHeightConverter();
+            
+            // Initialize inventory, outfits and collectables
+            initInventoryAndOutfits();
+            
+            // Initialize relationships graph
+            initRelationshipsGraph();
+            
+            // Load existing characters
+            characters = JSON.parse(localStorage.getItem('oc-characters')) || [];
+            
+            // Render gallery if there are characters
+            if (characters.length > 0) {
+                renderGallery();
+                updateObjectFilter();
+                updateStatistics();
+            }
+            
+            // Event listeners
+            saveButton.addEventListener('click', saveCharacter);
+            clearButton.addEventListener('click', clearForm);
+            searchNameInput.addEventListener('input', filterCharacters);
+            filterGenderSelect.addEventListener('change', filterCharacters);
+            filterObjectSelect.addEventListener('change', filterCharacters);
+            exportButton.addEventListener('click', exportData);
+            importButton.addEventListener('click', importData);
+            importFileInput.addEventListener('change', handleImportedFile);
+            clearAllButton.addEventListener('click', clearAllData);
+        }
+
+        // Start the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>                     

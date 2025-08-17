@@ -1610,11 +1610,11 @@
     </div>
 
     <script>
-        // Character data storage
+        
         let characters = JSON.parse(localStorage.getItem('oc-characters')) || [];
         let currentEditIndex = -1;
 
-        // Relationship options data
+       
         const relationshipOptions = [
             'Abel', 'Airyn', 'Amir', 'Arma', 'Artt', 'Barry Styles', 'Bathsheba', 'Beau', 
             'Ben-Hwa', 'Betty', 'Beverly', 'Bodhi', 'Bobby Pinn', 'Cabrizzio', 'Cam', 
@@ -1633,7 +1633,7 @@
             'XxXShadowl0rd420Xxx', 'Zoey Bennett'
         ];
 
-        // DOM Elements
+        
         const characterForm = document.getElementById('character-form');
         const saveButton = document.getElementById('save-character');
         const clearButton = document.getElementById('clear-form');
@@ -1651,7 +1651,7 @@
         const featuresBox = document.getElementById('features-box');
         const inanimalImageBox = document.getElementById('inanimal-image-box');
 
-        // Audio Players
+       
         const themePlayer = {
             audio: new Audio(),
             playBtn: document.getElementById('theme-play-btn'),
@@ -1709,9 +1709,9 @@
             actorName: document.getElementById('voice-actor-name')
         };
 
-        // Initialize audio players
+       
         function initAudioPlayer(player) {
-            // Play/Pause
+            
             player.playBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 player.audio.play();
@@ -1726,14 +1726,14 @@
                 player.playBtn.style.display = 'block';
             });
 
-            // Progress bar
+            
             player.audio.addEventListener('timeupdate', () => {
                 const currentTime = player.audio.currentTime;
                 const duration = player.audio.duration || 1;
                 const progressPercent = (currentTime / duration) * 100;
                 player.progressFilled.style.width = `${progressPercent}%`;
                 
-                // Update time display
+                
                 const currentMinutes = Math.floor(currentTime / 60);
                 const currentSeconds = Math.floor(currentTime % 60).toString().padStart(2, '0');
                 const durationMinutes = Math.floor(duration / 60);
@@ -1741,7 +1741,7 @@
                 player.timeDisplay.textContent = `${currentMinutes}:${currentSeconds} / ${durationMinutes}:${durationSeconds}`;
             });
 
-            // Click on progress bar to seek
+           
             player.progress.addEventListener('click', (e) => {
                 e.preventDefault();
                 const rect = player.progress.getBoundingClientRect();
@@ -1749,7 +1749,7 @@
                 player.audio.currentTime = pos * player.audio.duration;
             });
 
-            // Volume control
+            
             player.volumeControl.addEventListener('input', (e) => {
                 e.preventDefault();
                 player.audio.volume = e.target.value;
@@ -1759,7 +1759,7 @@
                 }
             });
 
-            // Mute button
+            
             player.muteBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 player.audio.muted = !player.audio.muted;
@@ -1770,7 +1770,7 @@
                 }
             });
 
-            // Handle audio upload
+            
             player.uploadBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 player.uploadInput.click();
@@ -1784,10 +1784,10 @@
                     player.audio.src = url;
                     player.songName ? player.songName.textContent = file.name : null;
                     
-                    // Enable play button
+                    
                     player.playBtn.disabled = false;
                     
-                    // Reset time display
+                   
                     player.audio.addEventListener('loadedmetadata', () => {
                         const duration = player.audio.duration;
                         const minutes = Math.floor(duration / 60);
@@ -1797,7 +1797,7 @@
                 }
             });
 
-            // When audio ends
+            
             player.audio.addEventListener('ended', () => {
                 player.pauseBtn.style.display = 'none';
                 player.playBtn.style.display = 'block';
@@ -1806,60 +1806,60 @@
             });
         }
 
-        // Tab functionality
+        
         document.querySelectorAll('.tab').forEach(tab => {
             tab.addEventListener('click', () => {
-                // Remove active class from all tabs and contents
+                
                 document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
                 document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
                 
-                // Add active class to clicked tab and corresponding content
+                
                 tab.classList.add('active');
                 const tabId = tab.getAttribute('data-tab');
                 document.getElementById(`${tabId}`).classList.add('active');
                 
-                // If gallery tab is activated, refresh the gallery
+                
                 if (tabId === 'gallery') {
                     renderGallery();
                 }
                 
-                // If stats tab is activated, update statistics
+                
                 if (tabId === 'stats') {
                     updateStatistics();
                 }
             });
         });
 
-        // Development tab functionality
+        
         document.querySelectorAll('.development-tab').forEach(tab => {
             tab.addEventListener('click', () => {
-                // Remove active class from all tabs and contents
+                
                 document.querySelectorAll('.development-tab').forEach(t => t.classList.remove('active'));
                 document.querySelectorAll('.development-content').forEach(c => c.classList.remove('active'));
                 
-                // Add active class to clicked tab and corresponding content
+                
                 tab.classList.add('active');
                 const tabId = tab.getAttribute('data-tab');
                 document.getElementById(`${tabId}-development`).classList.add('active');
             });
         });
 
-        // Initialize drag and drop
+       
         function initDragDrop() {
-            // Handle drag over
+            
             function handleDragOver(e) {
                 e.preventDefault();
                 this.style.borderColor = '#EBAC00';
                 this.style.backgroundColor = 'rgba(62, 132, 237, 0.3)';
             }
             
-            // Handle drag leave
+            
             function handleDragLeave() {
                 this.style.borderColor = '#EBAC00';
                 this.style.backgroundColor = 'rgba(62, 132, 237, 0.2)';
             }
             
-            // Handle drop
+            
             function handleDrop(e) {
                 e.preventDefault();
                 this.style.borderColor = '#EBAC00';
@@ -1877,7 +1877,7 @@
                 }
             }
             
-            // Initialize all drag-drop boxes
+            
             [mainImageBox, hairstyleBox, featuresBox, inanimalImageBox].forEach(box => {
                 box.addEventListener('dragover', handleDragOver);
                 box.addEventListener('dragleave', handleDragLeave);
@@ -1902,7 +1902,7 @@
             });
         }
 
-        // Handle image upload
+        
         function handleImageUpload(file, box) {
             if (!file.type.match('image.*')) {
                 alert('Please upload an image file');
@@ -1916,11 +1916,11 @@
             reader.readAsDataURL(file);
         }
 
-        // Handle multiple files upload
+        
         function handleMultipleUpload(files, box) {
             box.innerHTML = '';
             
-            // Create a container for multiple items
+            
             const container = document.createElement('div');
             container.style.display = 'grid';
             container.style.gridTemplateColumns = 'repeat(auto-fill, minmax(100px, 1fr))';
@@ -1948,7 +1948,7 @@
             
             box.appendChild(container);
             
-            // Add delete button
+            
             const deleteBtn = document.createElement('button');
             deleteBtn.className = 'delete-media-btn';
             deleteBtn.innerHTML = '×';
@@ -1959,14 +1959,14 @@
             box.appendChild(deleteBtn);
         }
 
-        // Display image in the box
+        
         function displayImage(src, box) {
             const img = document.createElement('img');
             img.src = src;
             box.innerHTML = '';
             box.appendChild(img);
             
-            // Add delete button
+            
             const deleteBtn = document.createElement('button');
             deleteBtn.className = 'delete-media-btn';
             deleteBtn.innerHTML = '×';
@@ -1977,7 +1977,7 @@
             box.appendChild(deleteBtn);
         }
 
-        // Reset box to initial state
+       
         function resetBox(box) {
             const inputId = box.querySelector('input').id;
             box.innerHTML = `
@@ -1985,15 +1985,15 @@
                 <input type="file" id="${inputId}" accept="image/*" ${inputId === 'character-features-images' ? 'multiple' : ''} class="image-upload">
                 <button class="delete-media-btn">×</button>
             `;
-            // Reinitialize the box
+            
             const newInput = box.querySelector('input');
             if (inputId === 'character-image') imageInput = newInput;
             initDragDrop();
         }
 
-        // Initialize color palettes
+        
         function initColorPalettes() {
-            // Eye color palette
+            
             const eyeColorPalette = document.getElementById('eye-color-palette');
             const selectedEyeColor = document.getElementById('selected-eye-color');
             const eyeColorPicker = document.getElementById('eye-color-picker');
@@ -2012,7 +2012,7 @@
                 addColorToPalette(color, eyeColorPalette, selectedEyeColor);
             });
             
-            // Hair color palette
+            
             const hairColorPalette = document.getElementById('hair-color-palette');
             const selectedHairColor = document.getElementById('selected-hair-color');
             const hairColorPicker = document.getElementById('hair-color-picker');
@@ -2031,7 +2031,7 @@
                 addColorToPalette(color, hairColorPalette, selectedHairColor);
             });
             
-            // Skin color palette
+            
             const skinColorPalette = document.getElementById('skin-color-palette');
             const selectedSkinColor = document.getElementById('selected-skin-color');
             const skinColorPicker = document.getElementById('skin-color-picker');
@@ -2081,7 +2081,7 @@
             palette.appendChild(swatch);
         }
 
-        // Initialize selector groups (pronouns, gender, sexuality)
+       
         function initSelectorGroups() {
             document.querySelectorAll('.selector-group').forEach(group => {
                 const options = group.querySelectorAll('.selector-option:not(:has(input))');
@@ -2089,7 +2089,7 @@
                 
                 options.forEach(option => {
                     option.addEventListener('click', function() {
-                        // If this is not the custom option
+                       
                         if (!this.contains(customInput)) {
                             group.querySelectorAll('.selector-option').forEach(opt => opt.classList.remove('active'));
                             this.classList.add('active');
@@ -2112,7 +2112,7 @@
             });
         }
 
-        // Initialize trait scales
+        
         function initTraitScales() {
             document.querySelectorAll('.trait-dots').forEach(scale => {
                 const dots = scale.querySelectorAll('.trait-dot');
@@ -2132,7 +2132,7 @@
             });
         }
 
-        // Initialize priority dots
+        
         function initPriorityDots() {
             document.querySelectorAll('.priority-dots').forEach(scale => {
                 const dots = scale.querySelectorAll('.priority-dot');
@@ -2152,7 +2152,7 @@
             });
         }
 
-        // Initialize height converter
+        
         function initHeightConverter() {
             const heightInput = document.getElementById('character-height');
             const heightDisplay = document.getElementById('height-conversion');
@@ -2166,7 +2166,7 @@
             });
         }
 
-        // Initialize inventory, outfits and collectables
+       
         function initInventoryAndOutfits() {
             const inventoryGrid = document.getElementById('inventory-grid');
             const outfitsGrid = document.getElementById('outfits-grid');
@@ -2250,20 +2250,20 @@
             container.appendChild(item);
         }
 
-        // Initialize relationships graph
+
         function initRelationshipsGraph() {
             const friendsContainer = document.getElementById('friends-options');
             const enemiesContainer = document.getElementById('enemies-options');
             const romanticContainer = document.getElementById('romantic-options');
             
-            // Clear existing options
+            
             friendsContainer.innerHTML = '';
             enemiesContainer.innerHTML = '';
             romanticContainer.innerHTML = '';
             
-            // Create options for each category
+           
             relationshipOptions.forEach(character => {
-                // Friends (yellow)
+                
                 const friendOption = document.createElement('div');
                 friendOption.className = 'relationship-option';
                 friendOption.textContent = character;
@@ -2272,7 +2272,7 @@
                 });
                 friendsContainer.appendChild(friendOption);
                 
-                // Enemies (red)
+                
                 const enemyOption = document.createElement('div');
                 enemyOption.className = 'relationship-option';
                 enemyOption.textContent = character;
@@ -2281,7 +2281,7 @@
                 });
                 enemiesContainer.appendChild(enemyOption);
                 
-                // Romantic (green)
+                
                 const romanticOption = document.createElement('div');
                 romanticOption.className = 'relationship-option';
                 romanticOption.textContent = character;
@@ -2292,9 +2292,9 @@
             });
         }
 
-        // Save character function
+       
         function saveCharacter() {
-            // Get form values
+            
             const name = document.getElementById('character-name').value;
             if (!name) {
                 alert('Character name is required!');
@@ -2304,7 +2304,7 @@
             const nickname = document.getElementById('character-nickname').value;
             const dob = document.getElementById('character-dob').value;
             
-            // Get pronouns
+           
             let pronouns = '';
             const activePronoun = document.querySelector('#pronoun-selector .selector-option.active');
             if (activePronoun) {
@@ -2314,7 +2314,7 @@
                 }
             }
             
-            // Get sexuality
+            
             let sexuality = '';
             const activeSexuality = document.querySelector('#sexuality-selector .selector-option.active');
             if (activeSexuality) {
@@ -2326,7 +2326,7 @@
             
             const age = document.getElementById('character-age').value;
             
-            // Get gender
+            
             let gender = '';
             const activeGender = document.querySelector('#gender-selector .selector-option.active');
             if (activeGender) {
@@ -2347,12 +2347,12 @@
             const weight = document.getElementById('character-weight').value;
             const bodyType = document.getElementById('character-body-type').value;
             
-            // Get colors
+          
             const eyeColor = document.getElementById('selected-eye-color').value;
             const hairColor = document.getElementById('selected-hair-color').value;
             const skinColor = document.getElementById('selected-skin-color').value;
             
-            // Get personality traits
+            
             const personalityTraits = {
                 niceMean: getTraitValue('nice-mean'),
                 braveCoward: getTraitValue('brave-coward'),
@@ -2366,7 +2366,7 @@
                 honestDeceptive: getTraitValue('honest-deceptive')
             };
             
-            // Get priorities
+            
             const priorities = {
                 work: getPriorityValue('priority-work'),
                 love: getPriorityValue('priority-love'),
@@ -2382,28 +2382,28 @@
                 power: getPriorityValue('priority-power')
             };
             
-            // Get image if exists
+            
             let imageUrl = '';
             const img = mainImageBox.querySelector('img');
             if (img) {
                 imageUrl = img.src;
             }
             
-            // Get hairstyle image if exists
+            
             let hairstyleUrl = '';
             const hairstyleImg = hairstyleBox.querySelector('img');
             if (hairstyleImg) {
                 hairstyleUrl = hairstyleImg.src;
             }
             
-            // Get features images if exist
+            
             const featuresImages = [];
             const featuresImgs = featuresBox.querySelectorAll('img');
             featuresImgs.forEach(img => {
                 featuresImages.push(img.src);
             });
             
-            // Get theme songs if exist
+           
             const themeSongs = [];
             if (themePlayer.audio.src) {
                 themeSongs.push({
@@ -2424,14 +2424,14 @@
                 });
             }
             
-            // Get voice claim if exists
+           
             let voiceClaim = {
                 audio: voicePlayer.audio.src ? voicePlayer.audio.src : '',
                 mediaName: voicePlayer.mediaName.value,
                 actorName: voicePlayer.actorName.value
             };
             
-            // Get inventory items
+           
             const inventory = [];
             const inventoryItems = document.querySelectorAll('#inventory-grid .inventory-item');
             inventoryItems.forEach(item => {
@@ -2445,7 +2445,7 @@
                 }
             });
             
-            // Get outfit items
+            
             const outfits = [];
             const outfitItems = document.querySelectorAll('#outfits-grid .outfit-item');
             outfitItems.forEach(item => {
@@ -2459,7 +2459,7 @@
                 }
             });
             
-            // Get collectable items
+            
             const collectables = [];
             const collectableItems = document.querySelectorAll('#collectables-grid .collectable-item');
             collectableItems.forEach(item => {
@@ -2473,7 +2473,7 @@
                 }
             });
             
-            // Get inanimal info
+            
             let inanimalImageUrl = '';
             const inanimalImg = inanimalImageBox.querySelector('img');
             if (inanimalImg) {
@@ -2487,21 +2487,21 @@
                 location: document.getElementById('inanimal-location').value
             };
             
-            // Get character development
+            
             const development = {
                 love: document.getElementById('love-development-text').value,
                 hate: document.getElementById('hate-development-text').value,
                 friend: document.getElementById('friend-development-text').value
             };
             
-            // Get relationships
+           
             const relationships = {
                 friends: Array.from(document.querySelectorAll('#friends-options .friends')).map(el => el.textContent),
                 enemies: Array.from(document.querySelectorAll('#enemies-options .enemies')).map(el => el.textContent),
                 romantic: Array.from(document.querySelectorAll('#romantic-options .romantic')).map(el => el.textContent)
             };
             
-            // Create character object
+            
             const character = {
                 name,
                 nickname,
@@ -2539,34 +2539,34 @@
                 createdAt: new Date().toISOString()
             };
             
-            // If editing, replace the existing character
+            
             if (currentEditIndex >= 0) {
                 characters[currentEditIndex] = character;
                 currentEditIndex = -1;
             } else {
-                // Otherwise, add new character
+                
                 characters.push(character);
             }
             
-            // Save to localStorage
+            
             localStorage.setItem('oc-characters', JSON.stringify(characters));
             
-            // Refresh gallery and filters
+           
             renderGallery();
             updateObjectFilter();
             updateStatistics();
             
-            // Clear form
+           
             clearForm();
             
-            // Show success message
+            
             alert(`Character "${name}" saved successfully!`);
             
-            // Switch to gallery tab
+           
             document.querySelector('.tab[data-tab="gallery"]').click();
         }
 
-        // Helper function to get trait value
+        
         function getTraitValue(id) {
             const dots = document.getElementById(id).querySelectorAll('.trait-dot');
             let value = 0;
@@ -2578,7 +2578,7 @@
             return value;
         }
 
-        // Helper function to get priority value
+       
         function getPriorityValue(id) {
             const dots = document.getElementById(id).querySelectorAll('.priority-dot');
             let value = 0;
@@ -2590,7 +2590,7 @@
             return value;
         }
 
-        // Render gallery
+       
         function renderGallery(filteredCharacters = null) {
             gallery.innerHTML = '';
             
@@ -2605,7 +2605,7 @@
                 const card = document.createElement('div');
                 card.className = 'character-card';
                 
-                // Format relationships for display
+                
                 const formatRelationships = (type) => {
                     return character.relationships && character.relationships[type] && character.relationships[type].length > 0 
                         ? character.relationships[type].join(', ') 
@@ -2630,7 +2630,7 @@
                     </div>
                 `;
                 
-                // Add event listeners to buttons
+               
                 const editBtn = card.querySelector('.edit-btn');
                 const deleteBtn = card.querySelector('.delete-btn');
                 
@@ -2649,12 +2649,12 @@
             });
         }
 
-        // Load character into form for editing
+        
         function loadCharacter(index) {
             const character = characters[index];
             currentEditIndex = index;
             
-            // Basic info
+            
             document.getElementById('character-name').value = character.name || '';
             document.getElementById('character-nickname').value = character.nickname || '';
             document.getElementById('character-dob').value = character.dob || '';
@@ -2681,7 +2681,7 @@
 }
 
             
-            // Set pronouns
+            
             if (character.pronouns) {
                 let pronounSet = false;
                 document.querySelectorAll('#pronoun-selector .selector-option').forEach(option => {
@@ -2696,7 +2696,7 @@
                 }
             }
             
-            // Set sexuality
+           
             if (character.sexuality) {
                 let sexualitySet = false;
                 document.querySelectorAll('#sexuality-selector .selector-option').forEach(option => {
@@ -2711,7 +2711,7 @@
                 }
             }
             
-            // Set gender
+           
             if (character.gender) {
                 let genderSet = false;
                 document.querySelectorAll('#gender-selector .selector-option').forEach(option => {
@@ -2726,7 +2726,7 @@
                 }
             }
             
-            // Set colors
+            
             if (character.eyeColor) {
                 document.getElementById('selected-eye-color').value = character.eyeColor;
                 const eyeSwatches = document.querySelectorAll('#eye-color-palette .color-swatch');
@@ -2757,7 +2757,7 @@
                 });
             }
             
-            // Set images
+            
             if (character.imageUrl) {
                 displayImage(character.imageUrl, mainImageBox);
             } else {
@@ -2770,7 +2770,7 @@
                 resetBox(hairstyleBox);
             }
             
-            // Set features images
+           
             if (character.featuresImages && character.featuresImages.length > 0) {
                 featuresBox.innerHTML = '';
                 const container = document.createElement('div');
@@ -2794,7 +2794,7 @@
                 
                 featuresBox.appendChild(container);
                 
-                // Add delete button
+               
                 const deleteBtn = document.createElement('button');
                 deleteBtn.className = 'delete-media-btn';
                 deleteBtn.innerHTML = '×';
@@ -2807,23 +2807,23 @@
                 resetBox(featuresBox);
             }
             
-            // Set theme songs
+            
             if (character.themeSongs && character.themeSongs.length > 0) {
-                // First song
+                
                 if (character.themeSongs[0]) {
                     themePlayer.audio.src = character.themeSongs[0].url;
                     themePlayer.songName.textContent = character.themeSongs[0].name || 'Theme song loaded';
                     themePlayer.playBtn.disabled = false;
                 }
                 
-                // Second song
+                
                 if (character.themeSongs[1]) {
                     song2Player.audio.src = character.themeSongs[1].url;
                     song2Player.songName.textContent = character.themeSongs[1].name || 'Theme song loaded';
                     song2Player.playBtn.disabled = false;
                 }
                 
-                // Third song
+                
                 if (character.themeSongs[2]) {
                     song3Player.audio.src = character.themeSongs[2].url;
                     song3Player.songName.textContent = character.themeSongs[2].name || 'Theme song loaded';
@@ -2841,7 +2841,7 @@
                 song3Player.playBtn.disabled = true;
             }
             
-            // Set voice claim
+            
             if (character.voiceClaim) {
                 voicePlayer.audio.src = character.voiceClaim.audio;
                 voicePlayer.mediaName.value = character.voiceClaim.mediaName || '';
@@ -2854,7 +2854,7 @@
                 voicePlayer.playBtn.disabled = true;
             }
             
-            // Set inventory
+            
             const inventoryGrid = document.getElementById('inventory-grid');
             inventoryGrid.innerHTML = '';
             if (character.inventory && character.inventory.length > 0) {
@@ -2876,7 +2876,7 @@
                 });
             }
             
-            // Set outfits
+            
             const outfitsGrid = document.getElementById('outfits-grid');
             outfitsGrid.innerHTML = '';
             if (character.outfits && character.outfits.length > 0) {
@@ -2898,7 +2898,7 @@
                 });
             }
             
-            // Set collectables
+            
             const collectablesGrid = document.getElementById('collectables-grid');
             collectablesGrid.innerHTML = '';
             if (character.collectables && character.collectables.length > 0) {
@@ -2920,7 +2920,7 @@
                 });
             }
             
-            // Set inanimal info
+            
             if (character.inanimal) {
                 if (character.inanimal.imageUrl) {
                     displayImage(character.inanimal.imageUrl, inanimalImageBox);
@@ -2938,7 +2938,7 @@
                 document.getElementById('inanimal-location').value = '';
             }
             
-            // Set character development
+            
             if (character.development) {
                 document.getElementById('love-development-text').value = character.development.love || '';
                 document.getElementById('hate-development-text').value = character.development.hate || '';
@@ -2949,7 +2949,7 @@
                 document.getElementById('friend-development-text').value = '';
             }
             
-            // Set personality traits
+            
             if (character.personalityTraits) {
                 setTraitValue('nice-mean', character.personalityTraits.niceMean);
                 setTraitValue('brave-coward', character.personalityTraits.braveCoward);
@@ -2963,7 +2963,7 @@
                 setTraitValue('honest-deceptive', character.personalityTraits.honestDeceptive);
             }
             
-            // Set priorities
+            
             if (character.priorities) {
                 setPriorityValue('priority-work', character.priorities.work);
                 setPriorityValue('priority-love', character.priorities.love);
@@ -2979,14 +2979,14 @@
                 setPriorityValue('priority-power', character.priorities.power);
             }
             
-            // Set relationships
+           
             if (character.relationships) {
-                // Clear all selections first
+                
                 document.querySelectorAll('.relationship-option').forEach(option => {
                     option.classList.remove('friends', 'enemies', 'romantic');
                 });
                 
-                // Set friends
+                
                 character.relationships.friends?.forEach(friend => {
                     const friendOptions = document.querySelectorAll('#friends-options .relationship-option');
                     friendOptions.forEach(option => {
@@ -2996,7 +2996,7 @@
                     });
                 });
                 
-                // Set enemies
+                
                 character.relationships.enemies?.forEach(enemy => {
                     const enemyOptions = document.querySelectorAll('#enemies-options .relationship-option');
                     enemyOptions.forEach(option => {
@@ -3006,7 +3006,7 @@
                     });
                 });
                 
-                // Set romantic
+               
                 character.relationships.romantic?.forEach(romantic => {
                     const romanticOptions = document.querySelectorAll('#romantic-options .relationship-option');
                     romanticOptions.forEach(option => {
@@ -3017,11 +3017,11 @@
                 });
             }
             
-            // Change save button text
+            
             saveButton.textContent = 'Update Character';
         }
 
-        // Helper function to set trait value
+        
         function setTraitValue(id, value) {
             const dots = document.getElementById(id).querySelectorAll('.trait-dot');
             dots.forEach((dot, i) => {
@@ -3033,7 +3033,7 @@
             });
         }
 
-        // Helper function to set priority value
+       
         function setPriorityValue(id, value) {
             const dots = document.getElementById(id).querySelectorAll('.priority-dot');
             dots.forEach((dot, i) => {
@@ -3045,7 +3045,7 @@
             });
         }
 
-        // Delete character
+        
         function deleteCharacter(index) {
             if (confirm(`Are you sure you want to delete "${characters[index].name}"? This cannot be undone.`)) {
                 const deletedName = characters[index].name;
@@ -3055,12 +3055,12 @@
                 updateObjectFilter();
                 updateStatistics();
                 
-                // If we're editing this character, clear the form
+                
                 if (currentEditIndex === index) {
                     clearForm();
                     currentEditIndex = -1;
                 } else if (currentEditIndex > index) {
-                    // Adjust current edit index if it's after the deleted character
+                   
                     currentEditIndex--;
                 }
                 
@@ -3068,18 +3068,18 @@
             }
         }
 
-        // Clear form
+        
         function clearForm() {
             characterForm.reset();
             currentEditIndex = -1;
             
-            // Reset all boxes
+            
             resetBox(mainImageBox);
             resetBox(hairstyleBox);
             resetBox(featuresBox);
             resetBox(inanimalImageBox);
             
-            // Reset audio players
+           
             themePlayer.audio.src = '';
             themePlayer.songName.textContent = 'No song selected';
             themePlayer.playBtn.disabled = true;
@@ -3113,12 +3113,12 @@
             voicePlayer.progressFilled.style.width = '0%';
             voicePlayer.timeDisplay.textContent = '0:00 / 0:00';
             
-            // Reset inventory, outfits and collectables
+            
             document.getElementById('inventory-grid').innerHTML = '';
             document.getElementById('outfits-grid').innerHTML = '';
             document.getElementById('collectables-grid').innerHTML = '';
             
-            // Reset all color selections
+           
             document.querySelectorAll('.color-swatch').forEach(swatch => {
                 swatch.classList.remove('active');
             });
@@ -3127,41 +3127,41 @@
             document.getElementById('selected-hair-color').value = '';
             document.getElementById('selected-skin-color').value = '';
             
-            // Reset all selector options
+            
             document.querySelectorAll('.selector-option').forEach(option => {
                 option.classList.remove('active');
             });
             
-            // Reset custom inputs
+            
             document.getElementById('custom-pronoun').value = '';
             document.getElementById('custom-sexuality').value = '';
             document.getElementById('custom-gender').value = '';
             
-            // Reset all trait scales
+           
             document.querySelectorAll('.trait-dot').forEach(dot => {
                 dot.classList.remove('active');
             });
             
-            // Reset all priority dots
+            
             document.querySelectorAll('.priority-dot').forEach(dot => {
                 dot.classList.remove('active');
             });
             
-            // Reset all relationship selections
+            
             document.querySelectorAll('.relationship-option').forEach(option => {
                 option.classList.remove('friends', 'enemies', 'romantic');
             });
             
-            // Reset development tabs
+            
             document.getElementById('love-development-text').value = '';
             document.getElementById('hate-development-text').value = '';
             document.getElementById('friend-development-text').value = '';
             
-            // Reset save button text
+            
             saveButton.textContent = 'Save Character';
         }
 
-        // Update object filter options
+       
         function updateObjectFilter() {
             const objectSet = new Set();
             characters.forEach(character => {
@@ -3180,13 +3180,13 @@
                 filterObjectSelect.appendChild(option);
             });
             
-            // Restore previous selection if it still exists
+           
             if (currentValue && Array.from(objectSet).includes(currentValue)) {
                 filterObjectSelect.value = currentValue;
             }
         }
 
-        // Filter characters based on search and filters
+       
         function filterCharacters() {
             const nameSearch = searchNameInput.value.toLowerCase();
             const genderFilter = filterGenderSelect.value;
@@ -3203,7 +3203,7 @@
             renderGallery(filtered);
         }
 
-        // Update statistics
+       
         function updateStatistics() {
             document.getElementById('total-characters').textContent = characters.length;
             
@@ -3231,7 +3231,7 @@
             let ageCount = 0;
             
             characters.forEach(character => {
-                // Count genders
+                
                 if (character.gender) {
                     const gender = character.gender.toLowerCase();
                     if (genderCounts.hasOwnProperty(gender)) {
@@ -3241,12 +3241,12 @@
                     }
                 }
                 
-                // Count objects
+                
                 if (character.object) {
                     objectCounts[character.object] = (objectCounts[character.object] || 0) + 1;
                 }
                 
-                // Calculate average age and age groups
+                
                 if (character.age && !isNaN(character.age)) {
                     const age = parseInt(character.age);
                     totalAge += age;
@@ -3264,26 +3264,26 @@
                 }
             });
             
-            // Update gender stats
+            
             document.getElementById('male-count').textContent = genderCounts.male;
             document.getElementById('female-count').textContent = genderCounts.female;
             document.getElementById('nb-count').textContent = genderCounts['non-binary'];
             
-            // Calculate average age
+            
             const averageAge = ageCount > 0 ? Math.round(totalAge / ageCount) : 0;
             document.getElementById('avg-age').textContent = averageAge;
             
-            // Update charts
+            
             updateGenderChart(genderCounts);
             updateAgeChart(ageGroups);
             updateObjectChart(objectCounts);
         }
         
-        // Update gender chart
+        
         function updateGenderChart(genderCounts) {
             const ctx = document.getElementById('gender-chart').getContext('2d');
             
-            // Destroy previous chart if it exists
+           
             if (window.genderChart) {
                 window.genderChart.destroy();
             }
@@ -3316,16 +3316,16 @@
             });
         }
         
-        // Update age chart
+        
         function updateAgeChart(ageGroups) {
             const ctx = document.getElementById('age-chart').getContext('2d');
             
-            // Destroy previous chart if it exists
+            
             if (window.ageChart) {
                 window.ageChart.destroy();
             }
             
-            // Filter out empty age groups
+            
             const filteredLabels = [];
             const filteredData = [];
             
@@ -3369,16 +3369,16 @@
             });
         }
         
-        // Update object chart
+       
         function updateObjectChart(objectCounts) {
             const ctx = document.getElementById('object-chart').getContext('2d');
             
-            // Destroy previous chart if it exists
+            
             if (window.objectChart) {
                 window.objectChart.destroy();
             }
             
-            // Sort objects by count (descending) and limit to top 10
+           
             const sortedObjects = Object.entries(objectCounts)
                 .sort((a, b) => b[1] - a[1])
                 .slice(0, 10);
@@ -3420,7 +3420,7 @@
             });
         }
 
-        // Export data
+        
         function exportData() {
             const dataStr = JSON.stringify(characters, null, 2);
             const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
@@ -3433,12 +3433,12 @@
             linkElement.click();
         }
 
-        // Import data
+        
         function importData() {
             importFileInput.click();
         }
 
-        // Handle imported file
+       
         function handleImportedFile(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -3465,11 +3465,11 @@
             };
             reader.readAsText(file);
             
-            // Reset file input
+            
             event.target.value = '';
         }
 
-        // Clear all data
+       
         function clearAllData() {
             if (confirm('WARNING: This will permanently delete ALL character data. Are you absolutely sure?')) {
                 characters = [];
@@ -3482,49 +3482,49 @@
             }
         }
 
-        // Initialize the app
+       
         function init() {
-            // Initialize drag and drop
+            
             initDragDrop();
             
-            // Initialize audio players
+            
             initAudioPlayer(themePlayer);
             initAudioPlayer(song2Player);
             initAudioPlayer(song3Player);
             initAudioPlayer(voicePlayer);
             
-            // Initialize color palettes
+            
             initColorPalettes();
             
-            // Initialize selector groups
+           
             initSelectorGroups();
             
-            // Initialize trait scales
+           
             initTraitScales();
             
-            // Initialize priority dots
+            
             initPriorityDots();
             
-            // Initialize height converter
+            
             initHeightConverter();
             
-            // Initialize inventory, outfits and collectables
+            
             initInventoryAndOutfits();
             
-            // Initialize relationships graph
+            
             initRelationshipsGraph();
             
-            // Load existing characters
+            
             characters = JSON.parse(localStorage.getItem('oc-characters')) || [];
             
-            // Render gallery if there are characters
+           
             if (characters.length > 0) {
                 renderGallery();
                 updateObjectFilter();
                 updateStatistics();
             }
             
-            // Event listeners
+           
             saveButton.addEventListener('click', saveCharacter);
             clearButton.addEventListener('click', clearForm);
             searchNameInput.addEventListener('input', filterCharacters);
@@ -3536,7 +3536,7 @@
             clearAllButton.addEventListener('click', clearAllData);
         }
 
-        // Start the app when DOM is loaded
+       
         document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
